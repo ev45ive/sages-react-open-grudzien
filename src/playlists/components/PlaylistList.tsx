@@ -25,6 +25,7 @@ const PlaylistList = (props: Props) => {
               `list-group-item-action`,
               playlist.id === selectedId && "active"
             )}
+            key={playlist.id}
             onClick={() => select(playlist.id)}
           >
             {index + 1}. {playlist.name}

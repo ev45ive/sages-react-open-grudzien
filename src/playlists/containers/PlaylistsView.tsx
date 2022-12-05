@@ -30,11 +30,18 @@ const PlaylistsView = (props: Props) => {
           <PlaylistList />
         </div>
         <div className="col">
-          <button className="btn btn-danger">Details</button>
-          <button className="btn btn-primary">Editor</button>
-
-          {true ? <PlaylistDetails playlist={selected} /> : null}
-          {false && <PlaylistEditor />}
+          {mode === "editor" && (
+            <>
+              <PlaylistEditor />
+              <button className="btn btn-danger" onClick={showDetails}>Details</button>
+            </>
+          )}
+          {mode === "details" && (
+            <>
+              <PlaylistDetails playlist={selected} />
+              <button className="btn btn-primary" onClick={showEditor}>Editor</button>
+            </>
+          )}
         </div>
       </div>
     </div>
