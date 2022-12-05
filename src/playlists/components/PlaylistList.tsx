@@ -3,17 +3,13 @@ import { mockPlaylists } from "../../common/mocks/mockPlaylists";
 import { classNames } from "../../common/helpers/classNames";
 import { Playlist } from "../../common/model/Playlist";
 
-type Props = {};
+type Props = {
+  playlists: Playlist[];
+  selectedId: string;
+  onSelect: (id: Playlist["id"]) => void;
+};
 
-const PlaylistList = (props: Props) => {
-  const playlists = mockPlaylists;
-  const [selectedId, setSelectedId] = useState("234");
-
-  const select = (id: Playlist["id"]) => {
-    console.log("Playlist clicked -> change id -> change selection");
-    setSelectedId(id);
-  };
-
+const PlaylistList = ({ playlists, onSelect, selectedId }: Props) => {
   return (
     <div>
       <div className="list-group">
@@ -26,7 +22,7 @@ const PlaylistList = (props: Props) => {
               playlist.id === selectedId && "active"
             )}
             key={playlist.id}
-            onClick={() => select(playlist.id)}
+            onClick={() => onSelect(playlist.id)}
           >
             {index + 1}. {playlist.name}
           </a>

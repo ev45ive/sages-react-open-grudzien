@@ -73,6 +73,9 @@ const PlaylistEditor = (props: Props) => {
           ></textarea>
         </div>
 
+        <button className="btn btn-danger" onClick={() => {}}>
+          Cancel
+        </button>
         <button type="submit" className="btn btn-primary">
           Save
         </button>
