@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {};
@@ -11,6 +11,12 @@ const PlaylistEditor = (props: Props) => {
     description: "Awesome Playlist",
   };
 
+  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log(event.currentTarget.value);
+  };
+
   return (
     <div>
       <form>
@@ -19,10 +25,11 @@ const PlaylistEditor = (props: Props) => {
             Name
           </label>
           <input
-            type="email"
+            type="text"
             className="form-control"
             id="playlist_name"
             defaultValue={playlist.name}
+            onChange={handleNameChange}
           />
           <div className="form-text float-end">0 / 100</div>
         </div>
