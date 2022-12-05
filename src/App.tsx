@@ -9,7 +9,12 @@ function App() {
         <div className="row">
           <div className="col">
             <h3 className="display-3">MusicApp</h3>
-            <img src={logo} className="App-logo" alt="logo" />
+            <img
+              src={logo}
+              className="App-logo"
+              alt="logo"
+              style={{ width: "110px", float: "left" }}
+            />
           </div>
         </div>
       </div>
