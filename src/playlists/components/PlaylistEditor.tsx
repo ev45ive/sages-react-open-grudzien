@@ -22,7 +22,7 @@ const PlaylistEditor = (props: Props) => {
             type="email"
             className="form-control"
             id="playlist_name"
-            value={playlist.name}
+            defaultValue={playlist.name}
           />
           <div className="form-text float-end">0 / 100</div>
         </div>
@@ -32,7 +32,7 @@ const PlaylistEditor = (props: Props) => {
             type="checkbox"
             className="form-check-input"
             id="playlist_public"
-            checked={playlist.public}
+            defaultChecked={playlist.public}
           />
           <label className="form-check-label" htmlFor="playlist_public">
             Public
@@ -44,6 +44,7 @@ const PlaylistEditor = (props: Props) => {
             Description
           </label>
           <textarea
+            readOnly
             value={playlist.description}
             className="form-control"
             id="exampleFormControlTextarea1"
