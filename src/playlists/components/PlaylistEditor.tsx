@@ -17,23 +17,6 @@ const PlaylistEditor = (props: Props) => {
     initial.description
   );
 
-  const [playlist, setPlaylist] = useState(initial);
-
-  function onNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-    playlist.name = event.target.value; // Mutable change // No copy - no render!
-    
-    setPlaylist(playlist); // No-Op -> same object
-    setPlaylist(playlist); // No-Op -> same object
-    setPlaylist(playlist); // No-Op -> same object
-    setPlaylist(playlist); // No-Op -> same object
-
-    // setPlaylist(playlist); // Same object => no change -> No render
-    setPlaylist({
-      ...playlist,
-      name: event.target.value,
-    });
-  }
-
   console.log("render");
 
   return (
@@ -58,9 +41,8 @@ const PlaylistEditor = (props: Props) => {
             type="text"
             className="form-control"
             id="playlist_name"
-            value={playlist.name} // od tego zaczynymy
-            // onChange={(event) => setPlaylistName(event.currentTarget.value)}
-            onChange={(event) => onNameChange(event)}
+            value={playlistName}
+            onChange={(event) => setPlaylistName(event.currentTarget.value)}
           />
           <div className="form-text float-end">{playlistName.length} / 100</div>
         </div>
