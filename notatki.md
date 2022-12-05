@@ -43,3 +43,7 @@ https://react-bootstrap.github.io
 https://ant.design/docs/react/introduce
 https://mui.com/
 https://www.primefaces.org/primereact/
+
+
+## VS Code React Extensions
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
