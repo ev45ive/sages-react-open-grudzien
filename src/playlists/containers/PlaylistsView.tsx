@@ -1,4 +1,5 @@
 import React from "react";
+
 import PlaylistDetails from "../components/PlaylistDetails";
 import PlaylistEditor from "../components/PlaylistEditor";
 import PlaylistList from "../components/PlaylistList";
@@ -15,10 +16,12 @@ const PlaylistsView = (props: Props) => {
   };
 
   return (
+    
     <div>
       {/* .row>.col*2 */}
       <div className="row">
         <div className="col">
+      {/* <<< Tutaj Jestem */ }
           <PlaylistList />
         </div>
         <div className="col">

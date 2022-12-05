@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {};
@@ -11,14 +11,12 @@ const PlaylistEditor = (props: Props) => {
     description: "Awesome Playlist",
   };
 
-  // const handleNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-  // const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    
-  const handleNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    console.log(event.currentTarget.value);
+  const [value, setValue] = useState("intial value 123");
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.value);
   };
+  console.log("render");
 
   return (
     <div>
@@ -31,10 +29,10 @@ const PlaylistEditor = (props: Props) => {
             type="text"
             className="form-control"
             id="playlist_name"
-            defaultValue={playlist.name}
+            value={value}
             onChange={handleNameChange}
           />
-          <div className="form-text float-end">0 / 100</div>
+          <div className="form-text float-end">{value.length} / 100</div>
         </div>
 
         <div className="mb-3 form-check">
