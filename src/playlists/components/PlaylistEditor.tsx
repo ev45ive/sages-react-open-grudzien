@@ -17,7 +17,12 @@ const PlaylistEditor = ({ playlist, onCancel, onSave }: Props) => {
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // onSave(?)
+    onSave({
+      ...playlist,
+      name: playlistName,
+      public: playlistPublic,
+      description: playlistDescription,
+    });
   };
 
   return (
