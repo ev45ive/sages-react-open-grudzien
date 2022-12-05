@@ -16,15 +16,20 @@ const PlaylistsView = (props: Props) => {
   const showDetails = () => {
     setMode("details");
   };
-  
+
+  const [playlists, setPlaylists] = useState(mockPlaylists);
+
   const savePlaylist = (draft: Playlist) => {
-    const index = playlists.findIndex((p) => p.id == draft.id);
-    playlists[index] = draft; /// ????
+    // const index = playlists.findIndex((p) => p.id == draft.id);
+    // playlists[index] = draft; /// Mutable change
+    // setPlaylists([...playlists]); // Immutable? DefensiveCopy
+
+    // Immutable Change:
+    setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
     selectPlaylistById(draft.id);
     showDetails();
   };
 
-  const playlists = mockPlaylists;
   const [selectedId, setSelectedId] = useState("234");
   const [selected, setSelected] = useState(playlists[0]);
 
@@ -45,11 +50,15 @@ const PlaylistsView = (props: Props) => {
           />
         </div>
         <div className="col">
-          {mode === "editor" && <PlaylistEditor  playlist={selected} 
-            onSave={savePlaylist} onCancel={showDetails} />}
+          {mode === "editor" && (
+            <PlaylistEditor
+              playlist={selected}
+              onSave={savePlaylist}
+              onCancel={showDetails}
+            />
+          )}
           {mode === "details" && (
-            <PlaylistDetails playlist={selected} 
-            onEdit={showEditor} />
+            <PlaylistDetails playlist={selected} onEdit={showEditor} />
           )}
         </div>
       </div>
