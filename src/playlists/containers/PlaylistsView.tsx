@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PlaylistDetails from "../components/PlaylistDetails";
 import PlaylistEditor from "../components/PlaylistEditor";
@@ -14,6 +14,13 @@ const PlaylistsView = (props: Props) => {
     public: false,
     description: "Awesome Playlist",
   };
+  const [mode, setMode] = useState<"details" | "editor">("details");
+  const showDetails = () => {
+    setMode("details");
+  };
+  const showEditor = () => {
+    setMode("editor");
+  };
 
   return (
     <div>
@@ -23,8 +30,11 @@ const PlaylistsView = (props: Props) => {
           <PlaylistList />
         </div>
         <div className="col">
-          <PlaylistDetails playlist={selected} />
-          <PlaylistEditor />
+          <button className="btn btn-danger">Details</button>
+          <button className="btn btn-primary">Editor</button>
+
+          {true ? <PlaylistDetails playlist={selected} /> : null}
+          {false && <PlaylistEditor />}
         </div>
       </div>
     </div>
