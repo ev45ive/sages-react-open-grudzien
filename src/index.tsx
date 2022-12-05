@@ -22,27 +22,37 @@ const users: User[] = [
   { id: 3, name: "Cat", color: "green", pet: { name: "Parrot" } },
 ];
 
-const Section = React.createElement(
-  "ul",
-  {
-    id: "testid",
-    className: "klasa",
-  },
-  users.map((user) => {
-    return React.createElement(
-      "li",
-      { style: { color: user.color, padding: "1rem" }, key: user.id },
-      React.createElement("span", null, user.name + " has a " + user.pet.name)
-    );
-  })
-  // React.createElement("input", { key: "pamietaj-mnie" })
-);
+const UserItem = (props: { user: User; key: string | number }) =>
+  React.createElement(
+    "li",
+    { style: { color: props.user.color, padding: "1rem" }, key: props.key },
+    React.createElement(
+      "span",
+      null,
+      props.user.name + " has a " + props.user.pet.name
+    )
+  );
+
+const Section = (props: { users: User[] }) =>
+  React.createElement(
+    "ul",
+    {
+      id: "testid",
+      className: "klasa",
+    },
+    props.users.map((user) => {
+      // return UserItem({ user, key: user.id });
+      // return React.createElement('div', { className:'test' });
+      return React.createElement(UserItem, { user, key: user.id });
+    })
+    // React.createElement("input", { key: "pamietaj-mnie" })
+  );
 
 const main = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-main.render(Section);
+main.render(React.createElement(Section, { users }));
 
 // const root = ReactDOM.createRoot(
 //   document.getElementById('root') as HTMLElement
