@@ -1,12 +1,18 @@
 import React from "react";
 import { mockPlaylists } from "../../common/mocks/mockPlaylists";
 import { classNames } from "../../common/helpers/classNames";
+import { Playlist } from "../../common/model/Playlist";
 
 type Props = {};
 
 const PlaylistList = (props: Props) => {
   const playlists = mockPlaylists;
-  const selectedId = "234";
+  const selectedId: Playlist["id"] = "234";
+
+  const select = (id: Playlist["id"]) => {
+    console.log('Playlist clicked -> change id -> change selection');
+    
+  };
 
   return (
     <div>
