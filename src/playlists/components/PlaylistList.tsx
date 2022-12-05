@@ -4,21 +4,22 @@ import { mockPlaylists } from "../../common/mocks/mockPlaylists";
 type Props = {};
 
 const PlaylistList = (props: Props) => {
-  const playlist = mockPlaylists;
-  const selectedId = '234'
+  const playlists = mockPlaylists;
+  const selectedId = "234";
 
   return (
     <div>
       <div className="list-group">
-        <a href="#" className="list-group-item list-group-item-action">
-          1. Playlist 123
-        </a>
-        <a href="#" className="list-group-item list-group-item-action           active">
-          A third link item ... 
-        </a>
-        <a href="#" className="list-group-item list-group-item-action">
-          A fourth link item  ...
-        </a>
+        {playlists.map((playlist, index) => (
+          <a
+            href="#"
+            className={
+              `list-group-item list-group-item-action ${playlist.id === selectedId ? "active" : ""}`
+            }
+          >
+            {index + 1}. {playlist.name}
+          </a>
+        ))}
       </div>
     </div>
   );
