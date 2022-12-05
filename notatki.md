@@ -21,6 +21,10 @@ cd sages-react-open-grudzien
 npm i 
 npm start
 
+## GIT update 
+git stash -u 
+git pull -f
+
 git remote remove origin
 git remote add origin https://github.com/ev45ive/sages-react-open-grudzien.git
 ## Create React App
