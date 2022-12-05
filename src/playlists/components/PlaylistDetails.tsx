@@ -4,15 +4,9 @@ import { Playlist } from "../../common/model/Playlist";
 
 type Props = { playlist: Playlist };
 
-// const PlaylistDetails = (props: Props) => {
 const PlaylistDetails = ({ playlist }: Props) => {
-  // const playlist = props.playlist;
-  // const { playlist /* ,x,y... */ } = props;
-  // const { playlist } = props;
-
   return (
     <div>
-      {/* dl>(dt{Name:}+dd{Playlist $})*3 */}
       <dl>
         <dt>Name:</dt>
         <dd>{playlist.name}</dd>

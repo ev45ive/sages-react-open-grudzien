@@ -7,8 +7,6 @@ import { Playlist } from "../../common/model/Playlist";
 type Props = {};
 
 const PlaylistsView = (props: Props) => {
-  // const zmienna : Typ = Wartosc
-
   const selected: Playlist = {
     id: "123",
     name: "Playlist 123",
