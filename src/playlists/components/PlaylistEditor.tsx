@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import React from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {};
@@ -11,9 +11,12 @@ const PlaylistEditor = (props: Props) => {
     description: "Awesome Playlist",
   };
 
-  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
+  // const handleNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  // const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    
+  const handleNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     console.log(event.currentTarget.value);
   };
 
