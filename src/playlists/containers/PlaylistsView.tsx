@@ -21,7 +21,6 @@ const PlaylistsView = (props: Props) => {
       <div className="row">
         <div className="col">
           <PlaylistList />
-          <PlaylistEditor />
         </div>
         <div className="col">
           <PlaylistDetails playlist={selected} />

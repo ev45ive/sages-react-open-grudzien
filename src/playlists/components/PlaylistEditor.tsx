@@ -12,6 +12,10 @@ const PlaylistEditor = (props: Props) => {
   };
 
   const [playlistName, setPlaylistName] = useState(playlist.name);
+  // React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render
+  if(Math.random() > .5){
+    useState(123)
+  }
   const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
   const [playlistDescription, setPlaylistDescription] = useState(
     playlist.description
