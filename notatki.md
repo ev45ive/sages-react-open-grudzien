@@ -47,3 +47,18 @@ https://www.primefaces.org/primereact/
 
 ## VS Code React Extensions
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+
+## Playlists module 
+
+mkdir -p src/common/components
+mkdir -p src/common/model
+
+mkdir -p src/playlists/containers
+mkdir -p src/playlists/components
+
+touch src/playlists/containers/PlaylistsView.tsx
+
+touch src/playlists/components/PlaylistDetails.tsx
+touch src/playlists/components/PlaylistList.tsx
+touch src/playlists/components/PlaylistEditor.tsx
+

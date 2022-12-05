@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "./logo.svg";
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.css";
+import PlaylistsView from "./playlists/containers/PlaylistsView";
 
 function App() {
   return (
@@ -9,13 +9,8 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col">
-            <img
-              src={logo}
-              className="App-logo"
-              alt="logo"
-              style={{ width: "110px", float: "left" }}
-            />
             <h3 className="display-3">MusicApp</h3>
+            <PlaylistsView />
           </div>
         </div>
       </div>
