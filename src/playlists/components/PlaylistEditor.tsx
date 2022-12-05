@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const PlaylistEditor = (props: Props) => {
-  return (
-    <div>PlaylistEditor</div>
-  )
-}
+  const playlist = {
+    id: "123",
+    name: "Playlist 123",
+    public: false,
+    description: "Awesome Playlist",
+  };
 
-export default PlaylistEditor
+  return <div>PlaylistEditor</div>;
+};
+
+export default PlaylistEditor;

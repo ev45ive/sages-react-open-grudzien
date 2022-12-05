@@ -1,28 +1,33 @@
 // tsrafce
 import React from "react";
+import { Playlist } from "../../common/model/Playlist";
 
-type Props = {};
+type Props = { playlist: Playlist };
 
-const PlaylistDetails = (props: Props) => {
-  const playlist = {
-    id: "123",
-    name: "Playlist 123",
-    public: true,
-    description: "Awesome Playlist",
-  };
+// const PlaylistDetails = (props: Props) => {
+const PlaylistDetails = ({ playlist }: Props) => {
+  // const playlist = props.playlist;
+  // const { playlist /* ,x,y... */ } = props;
+  // const { playlist } = props;
 
   return (
     <div>
       {/* dl>(dt{Name:}+dd{Playlist $})*3 */}
       <dl>
         <dt>Name:</dt>
-        <dd>Playlist 1</dd>
+        <dd>{playlist.name}</dd>
 
         <dt>Public:</dt>
-        <dd>Yes</dd>
+        <dd
+          style={{
+            color: playlist.public ? "red" : "green",
+          }}
+        >
+          {playlist.public ? "Yes" : "No"}
+        </dd>
 
         <dt>Description:</dt>
-        <dd>Best Playlist</dd>
+        <dd>{playlist.description}</dd>
       </dl>
     </div>
   );
