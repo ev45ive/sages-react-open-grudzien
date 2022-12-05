@@ -1,13 +1,8 @@
 import React from "react";
 import { mockPlaylists } from "../../common/mocks/mockPlaylists";
+import { classNames } from "../../common/helpers/classNames";
 
 type Props = {};
-
-const cls = (classes: (string | false)[]) => {
-  // TODO: implementation
-
-  return "";
-};
 
 const PlaylistList = (props: Props) => {
   const playlists = mockPlaylists;
@@ -19,11 +14,11 @@ const PlaylistList = (props: Props) => {
         {playlists.map((playlist, index) => (
           <a
             href="#"
-            className={cls([
+            className={classNames(
               `list-group-item`,
               `list-group-item-action`,
-              playlist.id === selectedId && "active",
-            ])}
+              playlist.id === selectedId && "active"
+            )}
           >
             {index + 1}. {playlist.name}
           </a>
