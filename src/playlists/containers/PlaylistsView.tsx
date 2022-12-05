@@ -16,12 +16,10 @@ const PlaylistsView = (props: Props) => {
   };
 
   return (
-    
     <div>
       {/* .row>.col*2 */}
       <div className="row">
         <div className="col">
-      {/* <<< Tutaj Jestem */ }
           <PlaylistList />
         </div>
         <div className="col">

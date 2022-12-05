@@ -11,11 +11,12 @@ const PlaylistEditor = (props: Props) => {
     description: "Awesome Playlist",
   };
 
-  const [value, setValue] = useState("intial value 123");
+  // const [value, setValue] = useState("intial value 123");
+  const [playlistName, setPlaylistName] = useState(playlist.name);
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
-  };
+  // const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setValue(event.currentTarget.value);
+  // };
   console.log("render");
 
   return (
@@ -29,10 +30,10 @@ const PlaylistEditor = (props: Props) => {
             type="text"
             className="form-control"
             id="playlist_name"
-            value={value}
-            onChange={handleNameChange}
+            value={playlistName}
+            onChange={(event) => setPlaylistName(event.currentTarget.value)}
           />
-          <div className="form-text float-end">{value.length} / 100</div>
+          <div className="form-text float-end">{playlistName.length} / 100</div>
         </div>
 
         <div className="mb-3 form-check">
