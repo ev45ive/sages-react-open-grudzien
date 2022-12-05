@@ -7,7 +7,7 @@ const PlaylistEditor = (props: Props) => {
   const playlist: Playlist = {
     id: "123",
     name: "Playlist 123",
-    public: false,
+    public: true,
     description: "Awesome Playlist",
   };
 
@@ -18,7 +18,12 @@ const PlaylistEditor = (props: Props) => {
           <label htmlFor="playlist_name" className="form-label">
             Name
           </label>
-          <input type="email" className="form-control" id="playlist_name" />
+          <input
+            type="email"
+            className="form-control"
+            id="playlist_name"
+            value={playlist.name}
+          />
           <div className="form-text float-end">0 / 100</div>
         </div>
 
@@ -27,6 +32,7 @@ const PlaylistEditor = (props: Props) => {
             type="checkbox"
             className="form-check-input"
             id="playlist_public"
+            checked={playlist.public}
           />
           <label className="form-check-label" htmlFor="playlist_public">
             Public
@@ -38,6 +44,7 @@ const PlaylistEditor = (props: Props) => {
             Description
           </label>
           <textarea
+            value={playlist.description}
             className="form-control"
             id="exampleFormControlTextarea1"
             rows={3}
