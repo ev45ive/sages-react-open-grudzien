@@ -11,16 +11,21 @@ const PlaylistEditor = (props: Props) => {
     description: "Awesome Playlist",
   };
 
-  // const [value, setValue] = useState("intial value 123");
   const [playlistName, setPlaylistName] = useState(playlist.name);
-
-  // const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValue(event.currentTarget.value);
-  // };
   console.log("render");
 
   return (
     <div>
+      <pre>
+        {JSON.stringify(
+          { 
+            name: playlistName,
+        /*  public: playlistPublic,
+            description: playlistDetails */ },
+          null,
+          2
+        )}
+      </pre>
       <form>
         <div className="mb-3">
           <label htmlFor="playlist_name" className="form-label">
