@@ -4,32 +4,50 @@ import { Playlist } from "../../common/model/Playlist";
 type Props = {};
 
 const PlaylistEditor = (props: Props) => {
-  const playlist: Playlist = {
+  const initial: Playlist = {
     id: "123",
     name: "Playlist 123",
     public: true,
     description: "Awesome Playlist",
   };
 
-  const [playlistName, setPlaylistName] = useState(playlist.name);
-  // React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render
-  if(Math.random() > .5){
-    useState(123)
-  }
-  const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
+  const [playlistName, setPlaylistName] = useState(initial.name);
+  const [playlistPublic, setPlaylistPublic] = useState(initial.public);
   const [playlistDescription, setPlaylistDescription] = useState(
-    playlist.description
+    initial.description
   );
+
+  const [playlist, setPlaylist] = useState(initial);
+
+  function onNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    playlist.name = event.target.value; // Mutable change // No copy - no render!
+    
+    setPlaylist(playlist); // No-Op -> same object
+    setPlaylist(playlist); // No-Op -> same object
+    setPlaylist(playlist); // No-Op -> same object
+    setPlaylist(playlist); // No-Op -> same object
+
+    // setPlaylist(playlist); // Same object => no change -> No render
+    setPlaylist({
+      ...playlist,
+      name: event.target.value,
+    });
+  }
+
   console.log("render");
 
   return (
     <div>
       <pre>
-        {JSON.stringify({
+        {JSON.stringify(
+          {
             name: playlistName,
             public: playlistPublic,
             description: playlistDescription,
-          }, null,2)}
+          },
+          null,
+          2
+        )}
       </pre>
       <form>
         <div className="mb-3">
@@ -40,8 +58,9 @@ const PlaylistEditor = (props: Props) => {
             type="text"
             className="form-control"
             id="playlist_name"
-            value={playlistName} // od tego zaczynymy
-            onChange={(event) => setPlaylistName(event.currentTarget.value)}
+            value={playlist.name} // od tego zaczynymy
+            // onChange={(event) => setPlaylistName(event.currentTarget.value)}
+            onChange={(event) => onNameChange(event)}
           />
           <div className="form-text float-end">{playlistName.length} / 100</div>
         </div>
