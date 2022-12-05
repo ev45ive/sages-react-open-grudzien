@@ -10,11 +10,11 @@ type Props = {};
 
 const PlaylistsView = (props: Props) => {
   const [mode, setMode] = useState<"details" | "editor">("details");
-  const showDetails = () => {
-    setMode("details");
-  };
   const showEditor = () => {
     setMode("editor");
+  };
+  const showDetails = () => {
+    setMode("details");
   };
 
   const playlists = mockPlaylists;
@@ -38,8 +38,10 @@ const PlaylistsView = (props: Props) => {
           />
         </div>
         <div className="col">
-          {mode === "editor" && <PlaylistEditor />}
-          {mode === "details" && <PlaylistDetails playlist={selected} />}
+          {mode === "editor" && <PlaylistEditor onCancel={showDetails} />}
+          {mode === "details" && (
+            <PlaylistDetails playlist={selected} onEdit={showEditor} />
+          )}
         </div>
       </div>
     </div>

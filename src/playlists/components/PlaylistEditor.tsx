@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
-type Props = {};
+type Props = { onCancel: () => void };
 
-const PlaylistEditor = (props: Props) => {
+const PlaylistEditor = ({ onCancel }: Props) => {
   const initial: Playlist = {
     id: "123",
     name: "Playlist 123",
@@ -73,7 +73,7 @@ const PlaylistEditor = (props: Props) => {
           ></textarea>
         </div>
 
-        <button className="btn btn-danger" onClick={() => {}}>
+        <button type="button" className="btn btn-danger" onClick={onCancel}>
           Cancel
         </button>
         <button type="submit" className="btn btn-primary">

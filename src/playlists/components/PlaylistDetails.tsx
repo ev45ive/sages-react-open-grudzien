@@ -2,9 +2,12 @@
 import React from "react";
 import { Playlist } from "../../common/model/Playlist";
 
-type Props = { playlist: Playlist };
+type Props = {
+  playlist: Playlist;
+  onEdit: () => void;
+};
 
-const PlaylistDetails = ({ playlist }: Props) => {
+const PlaylistDetails = ({ playlist, onEdit }: Props) => {
   return (
     <div>
       <dl>
@@ -23,7 +26,7 @@ const PlaylistDetails = ({ playlist }: Props) => {
         <dt>Description:</dt>
         <dd>{playlist.description}</dd>
       </dl>
-      <button className="btn btn-primary" onClick={() => {}}>
+      <button className="btn btn-primary" onClick={onEdit}>
         Edit
       </button>
     </div>
