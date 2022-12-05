@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
-type Props = { onCancel: () => void };
+type Props = {
+  playlist: Playlist;
+  onSave: (draft: Playlist) => void;
+  onCancel: () => void;
+};
 
-const PlaylistEditor = ({ onCancel }: Props) => {
-  const initial: Playlist = {
-    id: "123",
-    name: "Playlist 123",
-    public: true,
-    description: "Awesome Playlist",
-  };
-
-  const [playlistName, setPlaylistName] = useState(initial.name);
-  const [playlistPublic, setPlaylistPublic] = useState(initial.public);
+const PlaylistEditor = ({ playlist, onCancel, onSave }: Props) => {
+  const [playlistName, setPlaylistName] = useState(playlist.name);
+  const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
   const [playlistDescription, setPlaylistDescription] = useState(
-    initial.description
+    playlist.description
   );
 
-  console.log("render");
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // onSave(?)
+  };
 
   return (
     <div>
@@ -32,7 +33,7 @@ const PlaylistEditor = ({ onCancel }: Props) => {
           2
         )}
       </pre>
-      <form>
+      <form onSubmit={submit}>
         <div className="mb-3">
           <label htmlFor="playlist_name" className="form-label">
             Name

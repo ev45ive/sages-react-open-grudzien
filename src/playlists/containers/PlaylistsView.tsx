@@ -16,6 +16,13 @@ const PlaylistsView = (props: Props) => {
   const showDetails = () => {
     setMode("details");
   };
+  
+  const savePlaylist = (draft: Playlist) => {
+    const index = playlists.findIndex((p) => p.id == draft.id);
+    playlists[index] = draft; /// ????
+    selectPlaylistById(draft.id);
+    showDetails();
+  };
 
   const playlists = mockPlaylists;
   const [selectedId, setSelectedId] = useState("234");
@@ -38,9 +45,11 @@ const PlaylistsView = (props: Props) => {
           />
         </div>
         <div className="col">
-          {mode === "editor" && <PlaylistEditor onCancel={showDetails} />}
+          {mode === "editor" && <PlaylistEditor  playlist={selected} 
+            onSave={savePlaylist} onCancel={showDetails} />}
           {mode === "details" && (
-            <PlaylistDetails playlist={selected} onEdit={showEditor} />
+            <PlaylistDetails playlist={selected} 
+            onEdit={showEditor} />
           )}
         </div>
       </div>
