@@ -12,19 +12,20 @@ const PlaylistEditor = (props: Props) => {
   };
 
   const [playlistName, setPlaylistName] = useState(playlist.name);
+  const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
+  const [playlistDescription, setPlaylistDescription] = useState(
+    playlist.description
+  );
   console.log("render");
 
   return (
     <div>
       <pre>
-        {JSON.stringify(
-          { 
+        {JSON.stringify({
             name: playlistName,
-        /*  public: playlistPublic,
-            description: playlistDetails */ },
-          null,
-          2
-        )}
+            public: playlistPublic,
+            description: playlistDescription,
+          }, null,2)}
       </pre>
       <form>
         <div className="mb-3">
@@ -35,7 +36,7 @@ const PlaylistEditor = (props: Props) => {
             type="text"
             className="form-control"
             id="playlist_name"
-            value={playlistName}
+            value={playlistName} // od tego zaczynymy
             onChange={(event) => setPlaylistName(event.currentTarget.value)}
           />
           <div className="form-text float-end">{playlistName.length} / 100</div>
@@ -46,7 +47,8 @@ const PlaylistEditor = (props: Props) => {
             type="checkbox"
             className="form-check-input"
             id="playlist_public"
-            defaultChecked={playlist.public}
+            checked={playlistPublic}
+            onChange={(e) => setPlaylistPublic(e.target.checked)}
           />
           <label className="form-check-label" htmlFor="playlist_public">
             Public
@@ -58,8 +60,8 @@ const PlaylistEditor = (props: Props) => {
             Description
           </label>
           <textarea
-            readOnly
-            value={playlist.description}
+            value={playlistDescription}
+            onChange={(e) => setPlaylistDescription(e.target.value)}
             className="form-control"
             id="exampleFormControlTextarea1"
             rows={3}
