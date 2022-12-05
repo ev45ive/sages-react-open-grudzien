@@ -16,12 +16,13 @@ chrome://version
 108.0.5359.71
 
 ## Git 
-git clone https://bitbucket.org/ev45ive/sages-react-open-grudzien.git sages-react-open-grudzien
+git clone https://github.com/ev45ive/sages-react-open-grudzien.git sages-react-open-grudzien
 cd sages-react-open-grudzien
 npm i 
 npm start
 
-
+git remote remove origin
+git remote add origin https://github.com/ev45ive/sages-react-open-grudzien.git
 ## Create React App
 https://create-react-app.dev/docs/getting-started
 
