@@ -94,3 +94,7 @@ touch src/common/model/Album.ts
 https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-album
 
 https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype
+
+
+## JS Async 
+https://www.youtube.com/watch?v=cCOL7MC4Pl0&ab_channel=JSConf
