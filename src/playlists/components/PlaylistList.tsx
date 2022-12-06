@@ -28,7 +28,10 @@ const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
             {index + 1}. {playlist.name}
             <span
               className="close float-end"
-              onClick={() => onDelete(playlist.id)}
+              onClick={(event) => {
+                event.stopPropagation(); // Dont select when deleting!
+                onDelete(playlist.id);
+              }}
             >
               &times;
             </span>

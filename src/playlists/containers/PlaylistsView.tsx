@@ -16,12 +16,20 @@ const PlaylistsView = (props: Props) => {
 
   const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
 
+  const [selectedId, setSelectedId] = useState("234");
+  // const [selected, setSelected] = useState<Playlist | undefined>(playlists[0]);
+
+  const [selected, setSelected] = useState<Playlist>(/* undefined */);
+
+  const selectPlaylistById = (id: Playlist["id"]): void => {
+    setSelectedId(id);
+    setSelected(playlists.find((p) => p.id == id));
+  };
+
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID(); // Math.random().toString(26).slice(2)
-    // playlists.push(draft); // mutation!
-    // setPlaylists(playlists); // same ref - no change visible!
+    setPlaylists([...playlists, draft]);
 
-    setPlaylists([...playlists, draft]); // Immutable (Copy)
     selectPlaylistById(draft.id);
     showDetails();
   };
@@ -37,24 +45,13 @@ const PlaylistsView = (props: Props) => {
     showDetails();
   };
 
-  const [selectedId, setSelectedId] = useState("234");
-  // const [selected, setSelected] = useState<Playlist | undefined>(playlists[0]);
-
-  const [selected, setSelected] = useState<Playlist>(/* undefined */);
-
-  const selectPlaylistById = (id: Playlist["id"]): void => {
-    setSelectedId(id);
-
-    setSelected(playlists.find((p) => p.id == id));
-  };
-
   return (
     <div>
       {/* .row>.col*2 */}
       <div className="row">
         <div className="col">
           <PlaylistList
-          onDelete={removePlaylist}
+            onDelete={removePlaylist}
             playlists={playlists}
             selectedId={selected?.id}
             onSelect={selectPlaylistById}
