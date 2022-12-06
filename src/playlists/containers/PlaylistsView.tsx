@@ -15,43 +15,40 @@ const PlaylistsView = (props: Props) => {
   const showCreator = () => setMode("creator");
 
   const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
-
-  const [selectedId, setSelectedId] = useState("234");
-  // const [selected, setSelected] = useState<Playlist | undefined>(playlists[0]);
-
-  const [selected, setSelected] = useState<Playlist>(/* undefined */);
+  const [selectedId, setSelectedId] = useState<string>();
+  const [selected, setSelected] = useState<Playlist>();
 
   const selectPlaylistById = (id: Playlist["id"]): void => {
     setSelectedId(id);
-    setSelected(playlists.find((p) => p.id == id));
+    setPlaylists((playlists) => {
+      // TODO: Should be Object state / reducer  ( HACK !)
+      setSelected(playlists.find((p) => p.id == id));
+      return playlists;
+    });
   };
 
   const createPlaylist = (draft: Playlist) => {
-    draft.id = crypto.randomUUID(); // Math.random().toString(26).slice(2)
+    draft.id = crypto.randomUUID();
 
-    debugger
-    setPlaylists([...playlists, draft]);
-    
-    setPlaylists(prevPlaylists => {
-      debugger
-
-      return [...prevPlaylists, draft]
-    });
-
+    setPlaylists((playlists) => [...playlists, draft]);
     setSelected(draft);
-
-    // setSelected(playlists.find((p) => p.id == draft.id));
-    // selectPlaylistById(draft.id);
+    setSelectedId(draft.id);
     showDetails();
   };
 
   const removePlaylist = (id: Playlist["id"]) => {
-    setPlaylists(playlists.filter((p) => p.id !== id));
-    if (selected?.id === id) setSelected(undefined);
+    setPlaylists((playlists) => playlists.filter((p) => p.id !== id));
+    if (selected?.id === id) {
+      setSelected(undefined);
+      setSelectedId(undefined);
+    }
   };
 
   const savePlaylist = (draft: Playlist) => {
-    setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
+    setPlaylists((playlists) =>
+      playlists.map((p) => (p.id === draft.id ? draft : p))
+    );
+    setSelectedId(draft.id);
     selectPlaylistById(draft.id);
     showDetails();
   };
@@ -64,7 +61,7 @@ const PlaylistsView = (props: Props) => {
           <PlaylistList
             onDelete={removePlaylist}
             playlists={playlists}
-            selectedId={selected?.id}
+            selectedId={selectedId}
             onSelect={selectPlaylistById}
           />
           <button className="w-100 mt-3 btn btn-primary" onClick={showCreator}>
