@@ -20,11 +20,6 @@ const PlaylistsView = (props: Props) => {
   const [playlists, setPlaylists] = useState(mockPlaylists);
 
   const savePlaylist = (draft: Playlist) => {
-    // const index = playlists.findIndex((p) => p.id == draft.id);
-    // playlists[index] = draft; /// Mutable change
-    // setPlaylists([...playlists]); // Immutable? DefensiveCopy
-
-    // Immutable Change:
     setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
     selectPlaylistById(draft.id);
     showDetails();
@@ -35,7 +30,18 @@ const PlaylistsView = (props: Props) => {
 
   const selectPlaylistById = (id: Playlist["id"]) => {
     setSelectedId(id);
-    setSelected(playlists.find((p) => p.id == id)!);
+
+    // let selected = playlists.find((p) => p.id == id) as any;
+    // selected = 123
+    // selected.get.me.a.million.dollars().now().hurryup()
+    // let x = selected + 123
+
+    // let selected = playlists.find((p) => p.id == id) as Playlist;
+    // let placki = {} as Playlist
+
+    let selected = playlists.find((p) => p.id == id)!; // non-null assertion
+
+    setSelected(selected);
   };
 
   return (
