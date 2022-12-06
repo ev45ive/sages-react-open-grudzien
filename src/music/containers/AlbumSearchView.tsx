@@ -15,7 +15,9 @@ const AlbumSearchView = (props: Props) => {
     const results = fetchSearchResultsAPI(query);
     results
       .then((data) => setResults(data.albums.items))
-      .catch((error) => setError(error));
+      .catch((error) => {
+        setError(error.response.data.error);
+      });
   }, [query]);
 
   return (
