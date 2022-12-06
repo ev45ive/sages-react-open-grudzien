@@ -26,31 +26,14 @@ const PlaylistsView = (props: Props) => {
   };
 
   const [selectedId, setSelectedId] = useState("234");
-  const [selected, setSelected] = useState(playlists[0]);
+  // const [selected, setSelected] = useState<Playlist | undefined>(playlists[0]);
+
+  const [selected, setSelected] = useState<Playlist>(/* undefined */);
 
   const selectPlaylistById = (id: Playlist["id"]): void => {
     setSelectedId(id);
 
-    // let selected = playlists.find((p) => p.id == id) as any;
-    // selected = 123
-    // selected.get.me.a.million.dollars().now().hurryup()
-    // let x = selected + 123
-
-    // let selected = playlists.find((p) => p.id == id) as Playlist;
-    // let placki = {} as Playlist
-
-    // let selected = playlists.find((p) => p.id == id)!; // non-null assertion
-
-    let selected = playlists.find((p) => p.id == id);
-    //  Playlist | undefined
-    if (selected !== undefined) {
-      setSelected(selected); // Playlist
-    } else if (selected == undefined) {
-      selected; // undefined
-    } else {
-      selected; // never
-      throw new Error("No playlist to select");
-    }
+    setSelected(playlists.find((p) => p.id == id));
   };
 
   return (
@@ -60,21 +43,21 @@ const PlaylistsView = (props: Props) => {
         <div className="col">
           <PlaylistList
             playlists={playlists}
-            selectedId={selectedId}
+            selectedId={selected?.id}
             onSelect={selectPlaylistById}
           />
         </div>
         <div className="col">
-          {mode === "editor" && (
+          {mode === "details" && (
+            <PlaylistDetails playlist={selected} onEdit={showEditor} />
+          )}
+          {/* {mode === "editor" && (
             <PlaylistEditor
               playlist={selected}
               onSave={savePlaylist}
               onCancel={showDetails}
             />
-          )}
-          {mode === "details" && (
-            <PlaylistDetails playlist={selected} onEdit={showEditor} />
-          )}
+          )} */}
         </div>
       </div>
     </div>

@@ -3,11 +3,17 @@ import React from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
-  playlist: Playlist;
+  playlist?: Playlist;
   onEdit: () => void;
 };
 
 const PlaylistDetails = ({ playlist, onEdit }: Props) => {
+  if (!playlist) {
+    return <p className="alert alert-info">
+      No playlist selected
+    </p>;
+  }
+
   return (
     <div>
       <dl>

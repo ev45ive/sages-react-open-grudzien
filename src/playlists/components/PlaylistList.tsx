@@ -5,7 +5,7 @@ import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
   playlists: Playlist[];
-  selectedId: string;
+  selectedId?: string;
   onSelect: (id: Playlist["id"]) => void;
 };
 
