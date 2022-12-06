@@ -25,6 +25,13 @@ const PlaylistEditor = ({
     playlist.description
   );
 
+  useEffect(() => {
+    console.log(playlist);
+    setPlaylistName(playlist.name);
+    setPlaylistPublic(playlist.public);
+    setPlaylistDescription(playlist.description);
+  }, [playlist]);
+
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
