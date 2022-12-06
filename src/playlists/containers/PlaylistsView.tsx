@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PlaylistDetails from "../components/PlaylistDetails";
 import PlaylistEditor from "../components/PlaylistEditor";
@@ -21,14 +21,12 @@ const PlaylistsView = (props: Props) => {
 
   const selectPlaylistById = (id: Playlist["id"]): void => {
     setSelectedId(id);
-    // setSelected(playlists.find((p) => p.id == id)); // Prawa - details
   };
 
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID();
     setPlaylists((playlists) => [...playlists, draft]);
     setSelectedId(draft.id);
-    // setSelected(draft);
     showDetails();
   };
 
@@ -36,7 +34,6 @@ const PlaylistsView = (props: Props) => {
     setPlaylists((playlists) => playlists.filter((p) => p.id !== id));
     if (selected?.id === id) {
       setSelectedId(undefined);
-      // setSelected(undefined);
     }
   };
 
@@ -45,12 +42,16 @@ const PlaylistsView = (props: Props) => {
       playlists.map((p) => (p.id === draft.id ? draft : p))
     );
     setSelectedId(draft.id);
-    // setSelected(draft);
     showDetails();
   };
 
   // Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
-  setSelected(playlists.find((p) => p.id == selectedId));
+  // setSelected(playlists.find((p) => p.id == selectedId));
+
+  useEffect(() => {
+    console.log("useEffect");
+    setSelected(playlists.find((p) => p.id == selectedId));
+  });
 
   console.log("render ");
   return (
