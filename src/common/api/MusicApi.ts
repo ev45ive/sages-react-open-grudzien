@@ -1,5 +1,6 @@
 import axios from "axios";
 import { mockAlbums } from "../mocks/mockAlbums";
+import { getToken } from "../services/Auth";
 
 // export const fetchSearchResultsAPI = (query: string) => {
 //   console.log("Searching..." + query);
@@ -15,7 +16,9 @@ export const fetchSearchResultsAPI = async (query: string) => {
       type: "album",
       q: query,
     },
-    headers: {},
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
   });
 
   return data;

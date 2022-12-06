@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import PlaylistsView from "./playlists/containers/PlaylistsView";
 import AlbumSearchView from "./music/containers/AlbumSearchView";
+import { logIn } from "./common/services/Auth";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col">
+            <button className="btn float-end" onClick={logIn}>
+              Login
+            </button>
             <h3 className="display-3">MusicApp</h3>
             {/* <PlaylistsView /> */}
             <AlbumSearchView />
