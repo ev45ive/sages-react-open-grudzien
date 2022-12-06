@@ -33,3 +33,40 @@ console.log(5)
 
 // 2 // SetTimeout 0
 ```
+
+## Callbacks
+
+```js
+function echo(msg, callback) { 
+    setTimeout(()=>{
+        callback(msg)
+    },2000)
+}
+
+function render1(msg){     console.log('CompA',msg) }
+
+echo(1, render1)
+echo(2, data => {
+     console.log('comp2 ',data)   
+})
+
+// console.log(2) 
+// VM3643:22 2
+// undefined
+// VM3643:7 CompA 1
+// VM3643:11 comp2  2
+
+```
+## Callback hell, callback pyramid 
+
+```js
+echo('Ala', res => {
+    echo(res + ' ma ', res => {
+        echo(res + 'kota', res =>{
+            console.log('Comp3 ',res) 
+        })
+    })
+})
+// 6sec..
+// VM3643:17 Comp3  Ala ma kota
+```
