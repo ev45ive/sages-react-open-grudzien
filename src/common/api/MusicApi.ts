@@ -11,16 +11,23 @@ import { getToken } from "../services/Auth";
 
 export const fetchSearchResultsAPI = async (query: string) => {
   console.log("Searching..." + query);
+  try {
+    const { data } = await axios.get<AlbumSearchResponse>(
+      "https://api.spotify.com/v1/search",
+      {
+        params: {
+          type: "album",
+          q: query,
+        },
+        headers: {
+          Authorization: "Bearer " + getToken(),
+        },
+      }
+    );
 
-  const { data } = await axios.get<AlbumSearchResponse>("https://api.spotify.com/v1/search", {
-    params: {
-      type: "album",
-      q: query,
-    },
-    headers: {
-      Authorization: "Bearer " + getToken(),
-    },
-  });
-
-  return data.albums.items
+    return data.albums.items;
+  } catch (error: any) {
+    // return mockAlbums
+    throw new Error(error.response.data.error.message);
+  }
 };

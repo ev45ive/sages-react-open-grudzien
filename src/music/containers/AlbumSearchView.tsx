@@ -20,8 +20,8 @@ const AlbumSearchView = (props: Props) => {
 
     fetchSearchResultsAPI(query)
       .then((data) => setResults(data))
-      .catch((error) => setError(error.response.data.error))
-    .finally(() => setIsLoading(false));
+      .catch((error) => setError(error))
+      .finally(() => setIsLoading(false));
   }, [query]);
 
   return (
