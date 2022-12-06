@@ -28,7 +28,7 @@ const PlaylistsView = (props: Props) => {
   const [selectedId, setSelectedId] = useState("234");
   const [selected, setSelected] = useState(playlists[0]);
 
-  const selectPlaylistById = (id: Playlist["id"]) => {
+  const selectPlaylistById = (id: Playlist["id"]): void => {
     setSelectedId(id);
 
     // let selected = playlists.find((p) => p.id == id) as any;
@@ -39,9 +39,18 @@ const PlaylistsView = (props: Props) => {
     // let selected = playlists.find((p) => p.id == id) as Playlist;
     // let placki = {} as Playlist
 
-    let selected = playlists.find((p) => p.id == id)!; // non-null assertion
+    // let selected = playlists.find((p) => p.id == id)!; // non-null assertion
 
-    setSelected(selected);
+    let selected = playlists.find((p) => p.id == id);
+    //  Playlist | undefined
+    if (selected !== undefined) {
+      setSelected(selected); // Playlist
+    } else if (selected == undefined) {
+      selected; // undefined
+    } else {
+      selected; // never
+      throw new Error("No playlist to select");
+    }
   };
 
   return (
