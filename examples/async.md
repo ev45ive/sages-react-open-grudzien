@@ -70,3 +70,31 @@ echo('Ala', res => {
 // 6sec..
 // VM3643:17 Comp3  Ala ma kota
 ```
+
+## Promises
+```ts
+
+function echo(msg, err) {       
+   return new Promise((resolve, reject)=>{
+      setTimeout(()=>{
+            err? reject(err) : resolve(msg)
+      },2000)   
+   }) 
+}
+
+p = echo('Alice','Nie ma Alice')
+    .catch( err => 'Nikt nie' )
+    .then( res => echo(res + ' ma ' ))
+
+    p.then( res => echo(res + 'kota '))
+     .then( console.log ) 
+    
+    p.then( res => echo(res + 'psa ', 'Nie ma psa'))
+     .then( console.log )
+     .catch( console.log )
+     
+// Promise {<pending>}
+
+// Nikt nie ma kota 
+// Nie ma psa
+```
