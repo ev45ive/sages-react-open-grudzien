@@ -15,35 +15,35 @@ const EMPTY_PLAYLIST: Playlist = {
 };
 
 const PlaylistEditor = ({
-  playlist = EMPTY_PLAYLIST,
+  playlist: parentPlaylist = EMPTY_PLAYLIST,
   onCancel,
   onSave,
 }: Props) => {
-  const [playlistName, setPlaylistName] = useState(playlist.name);
-  const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
+  const [playlistName, setPlaylistName] = useState(parentPlaylist.name);
+  const [playlistPublic, setPlaylistPublic] = useState(parentPlaylist.public);
   const [playlistDescription, setPlaylistDescription] = useState(
-    playlist.description
+    parentPlaylist.description
   );
 
   useEffect(() => {
-    console.log(playlist);
-    setPlaylistName(playlist.name);
-    setPlaylistPublic(playlist.public);
-    setPlaylistDescription(playlist.description);
-  }, [playlist]);
+    console.log(parentPlaylist);
+    setPlaylistName(parentPlaylist.name);
+    setPlaylistPublic(parentPlaylist.public);
+    setPlaylistDescription(parentPlaylist.description);
+  }, [parentPlaylist]);
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     onSave({
-      ...playlist,
+      ...parentPlaylist,
       name: playlistName,
       public: playlistPublic,
       description: playlistDescription,
     });
   };
 
-  useEffect(() => nameInputRef.current?.focus(), [playlist]);
+  useEffect(() => nameInputRef.current?.focus(), [parentPlaylist]);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,7 +52,7 @@ const PlaylistEditor = ({
 
   return (
     <div>
-      <Json>{playlist}</Json>
+      <Json>{parentPlaylist}</Json>
       <Json>
         {{
           name: playlistName,
