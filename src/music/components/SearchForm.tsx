@@ -13,6 +13,7 @@ const SearchForm = (props: Props) => {
     <div className="mb-3">
       <div className="input-group">
         <input
+          id="searchinput"
           type="text"
           className="form-control"
           placeholder="Search"

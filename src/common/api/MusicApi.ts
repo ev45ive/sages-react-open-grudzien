@@ -22,5 +22,5 @@ export const fetchSearchResultsAPI = async (query: string) => {
     },
   });
 
-  return data;
+  return data.albums.items
 };
