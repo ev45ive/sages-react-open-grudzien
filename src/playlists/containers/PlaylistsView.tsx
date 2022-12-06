@@ -28,9 +28,20 @@ const PlaylistsView = (props: Props) => {
 
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID(); // Math.random().toString(26).slice(2)
-    setPlaylists([...playlists, draft]);
 
-    selectPlaylistById(draft.id);
+    debugger
+    setPlaylists([...playlists, draft]);
+    
+    setPlaylists(prevPlaylists => {
+      debugger
+
+      return [...prevPlaylists, draft]
+    });
+
+    setSelected(draft);
+
+    // setSelected(playlists.find((p) => p.id == draft.id));
+    // selectPlaylistById(draft.id);
     showDetails();
   };
 
