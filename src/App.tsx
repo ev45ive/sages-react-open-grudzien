@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import PlaylistsView from "./playlists/containers/PlaylistsView";
+import AlbumSearchView from "./music/containers/AlbumSearchView";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
         <div className="row">
           <div className="col">
             <h3 className="display-3">MusicApp</h3>
-            <PlaylistsView />
+            {/* <PlaylistsView /> */}
+            <AlbumSearchView />
           </div>
         </div>
       </div>
