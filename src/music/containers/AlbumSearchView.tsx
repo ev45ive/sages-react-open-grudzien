@@ -9,10 +9,13 @@ type Props = {};
 const AlbumSearchView = (props: Props) => {
   const [results, setResults] = useState<Album[]>([]);
   const [query, setQuery] = useState("batman");
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const results = fetchSearchResultsAPI(query);
-    results.then((data) => setResults(data));
+    results
+      .then((data) => setResults(data.albums.items))
+      .catch((error) => setError(error));
   }, [query]);
 
   return (
@@ -24,6 +27,7 @@ const AlbumSearchView = (props: Props) => {
       </div>
       <div className="row">
         <div className="col">
+          {error && <p className="alert alert-danger my-2">{error.message}</p>}
           <ResultsGrid results={results} />
         </div>
       </div>

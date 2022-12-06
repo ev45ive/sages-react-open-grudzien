@@ -23,7 +23,10 @@ export const initAuth = () => {
   if (window.location.hash) {
     const params = new URLSearchParams(window.location.hash.slice(1));
     token = params.get("access_token");
-    token && sessionStorage.setItem("token", JSON.stringify(token));
+    if (token) {
+      window.location.hash = "";
+      sessionStorage.setItem("token", JSON.stringify(token));
+    }
   }
 
   const storageToken = sessionStorage.getItem("token");
@@ -33,5 +36,5 @@ export const initAuth = () => {
 };
 
 export const getToken = () => {
-    return token
-}
+  return token;
+};
