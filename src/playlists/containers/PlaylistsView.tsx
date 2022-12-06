@@ -80,6 +80,9 @@ const PlaylistsView = (props: Props) => {
           {mode === "creator" && (
             <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
           )}
+          {mode === "creator" && (
+            <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
+          )}
         </div>
       </div>
     </div>

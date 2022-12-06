@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
@@ -37,27 +37,26 @@ const PlaylistEditor = ({
   };
 
   useEffect(() => {
-    // const elem = document.getElementById("playlist_name");
-
     nameInputRef.current?.focus();
   }, [playlist]);
 
-  // const first = useRef<boolean>();
   const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const uid = useId();
+  const uid2 = useId() + "playlist_public";
 
   return (
     <div>
       <form onSubmit={submit}>
         <div className="mb-3">
-          <label htmlFor="playlist_name" className="form-label">
+          <label htmlFor={uid + "playlist_name"} className="form-label">
             Name
           </label>
           <input
-            // ref={console.log}
+            id={uid + "playlist_name"}
             ref={nameInputRef}
             type="text"
             className="form-control"
-            id="playlist_name"
             value={playlistName}
             onChange={(event) => setPlaylistName(event.currentTarget.value)}
           />
@@ -68,11 +67,11 @@ const PlaylistEditor = ({
           <input
             type="checkbox"
             className="form-check-input"
-            id="playlist_public"
+            id={uid2}
             checked={playlistPublic}
             onChange={(e) => setPlaylistPublic(e.target.checked)}
           />
-          <label className="form-check-label" htmlFor="playlist_public">
+          <label className="form-check-label" htmlFor={uid2}>
             Public
           </label>
         </div>
