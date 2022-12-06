@@ -45,22 +45,12 @@ const PlaylistsView = (props: Props) => {
     showDetails();
   };
 
-  // <React.StrictMode> - mount useEffect 2x
-
-  useEffect(() => {
-    console.log("useEffect After each render!");
-  });
-
   useEffect(() => {
     console.log("useEffect - once + after deps[] changed");
     setSelected(playlists.find((p) => p.id == selectedId));
   }, [selectedId]);
 
-  useEffect(() => {
-    console.log("useEffect - Only Once!");
-  }, []);
-
-  console.log("render ");
+  // console.log("render ");
   return (
     <div>
       {/* .row>.col*2 */}

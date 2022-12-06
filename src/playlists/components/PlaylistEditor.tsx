@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
@@ -36,25 +36,25 @@ const PlaylistEditor = ({
     });
   };
 
+  useEffect(() => {
+    // const elem = document.getElementById("playlist_name");
+
+    nameInputRef.current?.focus();
+  }, [playlist]);
+
+  // const first = useRef<boolean>();
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div>
-      {/* <pre>
-        {JSON.stringify(
-          {
-            name: playlistName,
-            public: playlistPublic,
-            description: playlistDescription,
-          },
-          null,
-          2
-        )}
-      </pre> */}
       <form onSubmit={submit}>
         <div className="mb-3">
           <label htmlFor="playlist_name" className="form-label">
             Name
           </label>
           <input
+            // ref={console.log}
+            ref={nameInputRef}
             type="text"
             className="form-control"
             id="playlist_name"
