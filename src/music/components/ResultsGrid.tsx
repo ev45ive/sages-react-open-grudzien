@@ -1,15 +1,16 @@
 import React from "react";
+import { Album } from "../../common/model/Album";
 import AlbumCard from "./AlbumCard";
 
-type Props = {};
+type Props = { results: Album[]; };
 
 const ResultsGrid = (props: Props) => {
   return (
     <div>
       <div className="row row-cols-1 row-cols-sm-4 g-0">
-        {[1, 2, 3, 4, 5].map(() => (
-          <div className="col">
-            <AlbumCard />
+        {props.results.map((result) => (
+          <div className="col" key={result.id}>
+            <AlbumCard album={result} />
           </div>
         ))}
       </div>
