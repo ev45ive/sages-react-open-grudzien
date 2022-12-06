@@ -36,9 +36,7 @@ const PlaylistEditor = ({
     });
   };
 
-  useEffect(() => {
-    nameInputRef.current?.focus();
-  }, [playlist]);
+  useEffect(() => nameInputRef.current?.focus(), [playlist]);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,6 +45,14 @@ const PlaylistEditor = ({
 
   return (
     <div>
+      <Json>{playlist}</Json>
+      <Json>
+        {{
+          name: playlistName,
+          public: playlistPublic,
+          description: playlistDescription,
+        }}
+      </Json>
       <form onSubmit={submit}>
         <div className="mb-3">
           <label htmlFor={uid + "playlist_name"} className="form-label">
@@ -99,6 +105,10 @@ const PlaylistEditor = ({
     </div>
   );
 };
+
+const Json = ({ children }: any) => (
+  <pre>{JSON.stringify(children, null, 2)}</pre>
+);
 
 // PlaylistEditor.defaultProps = {
 //   playlist: EMPTY_PLAYLIST

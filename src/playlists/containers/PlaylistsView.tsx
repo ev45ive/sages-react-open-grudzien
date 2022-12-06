@@ -45,10 +45,10 @@ const PlaylistsView = (props: Props) => {
     showDetails();
   };
 
-  useEffect(() => {
-    console.log("useEffect - once + after deps[] changed");
-    setSelected(playlists.find((p) => p.id == selectedId));
-  }, [selectedId]);
+  useEffect(
+    () => setSelected(playlists.find((p) => p.id == selectedId)),
+    [selectedId]
+  );
 
   // console.log("render ");
   return (
@@ -76,9 +76,6 @@ const PlaylistsView = (props: Props) => {
               onSave={savePlaylist}
               onCancel={showDetails}
             />
-          )}
-          {mode === "creator" && (
-            <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
           )}
           {mode === "creator" && (
             <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
