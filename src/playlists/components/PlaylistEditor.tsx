@@ -101,4 +101,8 @@ const PlaylistEditor = ({
   );
 };
 
+// PlaylistEditor.defaultProps = {
+//   playlist: EMPTY_PLAYLIST
+// }
+
 export default PlaylistEditor;

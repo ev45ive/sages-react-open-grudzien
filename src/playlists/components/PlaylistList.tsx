@@ -25,6 +25,7 @@ const PlaylistList = ({ playlists, onSelect, selectedId }: Props) => {
             onClick={() => onSelect(playlist.id)}
           >
             {index + 1}. {playlist.name}
+            <span className="close float-end">&times;</span>
           </a>
         ))}
       </div>

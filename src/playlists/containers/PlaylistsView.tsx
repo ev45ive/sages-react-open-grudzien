@@ -16,7 +16,17 @@ const PlaylistsView = (props: Props) => {
 
   const [playlists, setPlaylists] = useState(mockPlaylists);
 
-  const createPlaylist = (draft: Playlist) => {};
+  const createPlaylist = (draft: Playlist) => {
+    draft.id = crypto.randomUUID(); // Math.random().toString(26).slice(2)
+    // TODO: Add to list
+    selectPlaylistById(draft.id);
+    showDetails();
+  };
+
+  const removePlaylist = (id:Playlist['id']) => {
+    // TODO: Remove playlsit
+    // Unselect if removing selected
+  }
 
   const savePlaylist = (draft: Playlist) => {
     setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
