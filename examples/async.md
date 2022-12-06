@@ -92,9 +92,35 @@ p = echo('Alice','Nie ma Alice')
     p.then( res => echo(res + 'psa ', 'Nie ma psa'))
      .then( console.log )
      .catch( console.log )
-     
+
 // Promise {<pending>}
 
 // Nikt nie ma kota 
 // Nie ma psa
 ```
+
+## Async + Await
+```ts
+async function makeRequests(){
+
+    const res = await echo('Alice')
+    const res2 = await echo( res + ' ma ')
+
+    // const resA = await echo( res2 + ' kota ')  // await to sequence!
+    // const resB = await echo( res2 + ' psa ')
+
+    await echo('fake',' error !!!') // Await to get errors
+    
+    const resA =  echo( res2 + ' kota ') // dont await to continue
+    const resB =  echo( res2 + ' psa ')
+
+    return await resA + ' & ' +  await resB 
+}
+
+makeRequests().then(console.log).catch(console.log) 
+
+console.log(1)
+VM6680:27 1
+undefined
+ error !!!
+ ```
