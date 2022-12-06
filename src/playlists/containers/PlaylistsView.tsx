@@ -9,15 +9,14 @@ import { mockPlaylists } from "../../common/mocks/mockPlaylists";
 type Props = {};
 
 const PlaylistsView = (props: Props) => {
-  const [mode, setMode] = useState<"details" | "editor">("details");
-  const showEditor = () => {
-    setMode("editor");
-  };
-  const showDetails = () => {
-    setMode("details");
-  };
+  const [mode, setMode] = useState<"details" | "editor" | "creator">("details");
+  const showEditor = () => setMode("editor");
+  const showDetails = () => setMode("details");
+  const showCreator = () => setMode("creator");
 
   const [playlists, setPlaylists] = useState(mockPlaylists);
+
+  const createPlaylist = (draft: Playlist) => {};
 
   const savePlaylist = (draft: Playlist) => {
     setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
@@ -46,18 +45,24 @@ const PlaylistsView = (props: Props) => {
             selectedId={selected?.id}
             onSelect={selectPlaylistById}
           />
+          <button className="w-100 mt-3 btn btn-primary" onClick={showCreator}>
+            New Playlist
+          </button>
         </div>
         <div className="col">
           {mode === "details" && (
             <PlaylistDetails playlist={selected} onEdit={showEditor} />
           )}
-          {/* {mode === "editor" && (
+          {mode === "editor" && (
             <PlaylistEditor
               playlist={selected}
               onSave={savePlaylist}
               onCancel={showDetails}
             />
-          )} */}
+          )}
+          {mode === "creator" && (
+            <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
+          )}
         </div>
       </div>
     </div>

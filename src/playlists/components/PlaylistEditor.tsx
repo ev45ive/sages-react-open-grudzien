@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
-  playlist: Playlist;
+  playlist?: Playlist;
   onSave: (draft: Playlist) => void;
   onCancel: () => void;
 };
 
-const PlaylistEditor = ({ playlist, onCancel, onSave }: Props) => {
+const EMPTY_PLAYLIST: Playlist = {
+  id: "",
+  name: "",
+  public: false,
+  description: "",
+};
+
+const PlaylistEditor = ({
+  playlist = EMPTY_PLAYLIST,
+  onCancel,
+  onSave,
+}: Props) => {
   const [playlistName, setPlaylistName] = useState(playlist.name);
   const [playlistPublic, setPlaylistPublic] = useState(playlist.public);
   const [playlistDescription, setPlaylistDescription] = useState(
