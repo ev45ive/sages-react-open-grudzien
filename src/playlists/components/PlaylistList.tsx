@@ -7,9 +7,10 @@ type Props = {
   playlists: Playlist[];
   selectedId?: string;
   onSelect: (id: Playlist["id"]) => void;
+  onDelete: (id: Playlist["id"]) => void;
 };
 
-const PlaylistList = ({ playlists, onSelect, selectedId }: Props) => {
+const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
   return (
     <div>
       <div className="list-group">
@@ -25,7 +26,12 @@ const PlaylistList = ({ playlists, onSelect, selectedId }: Props) => {
             onClick={() => onSelect(playlist.id)}
           >
             {index + 1}. {playlist.name}
-            <span className="close float-end">&times;</span>
+            <span
+              className="close float-end"
+              onClick={() => onDelete(playlist.id)}
+            >
+              &times;
+            </span>
           </a>
         ))}
       </div>

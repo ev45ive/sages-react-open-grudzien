@@ -14,19 +14,22 @@ const PlaylistsView = (props: Props) => {
   const showDetails = () => setMode("details");
   const showCreator = () => setMode("creator");
 
-  const [playlists, setPlaylists] = useState(mockPlaylists);
+  const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
 
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID(); // Math.random().toString(26).slice(2)
-    // TODO: Add to list
+    // playlists.push(draft); // mutation!
+    // setPlaylists(playlists); // same ref - no change visible!
+
+    setPlaylists([...playlists, draft]); // Immutable (Copy)
     selectPlaylistById(draft.id);
     showDetails();
   };
 
-  const removePlaylist = (id:Playlist['id']) => {
-    // TODO: Remove playlsit
-    // Unselect if removing selected
-  }
+  const removePlaylist = (id: Playlist["id"]) => {
+    setPlaylists(playlists.filter((p) => p.id !== id));
+    if (selected?.id === id) setSelected(undefined);
+  };
 
   const savePlaylist = (draft: Playlist) => {
     setPlaylists(playlists.map((p) => (p.id === draft.id ? draft : p)));
@@ -51,6 +54,7 @@ const PlaylistsView = (props: Props) => {
       <div className="row">
         <div className="col">
           <PlaylistList
+          onDelete={removePlaylist}
             playlists={playlists}
             selectedId={selected?.id}
             onSelect={selectPlaylistById}
