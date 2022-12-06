@@ -38,7 +38,7 @@ const PlaylistEditor = ({
 
   return (
     <div>
-      <pre>
+      {/* <pre>
         {JSON.stringify(
           {
             name: playlistName,
@@ -48,7 +48,7 @@ const PlaylistEditor = ({
           null,
           2
         )}
-      </pre>
+      </pre> */}
       <form onSubmit={submit}>
         <div className="mb-3">
           <label htmlFor="playlist_name" className="form-label">

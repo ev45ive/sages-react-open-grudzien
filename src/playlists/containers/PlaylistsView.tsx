@@ -15,32 +15,28 @@ const PlaylistsView = (props: Props) => {
   const showCreator = () => setMode("creator");
 
   const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
-  const [selectedId, setSelectedId] = useState<string>();
+
+  const [selectedId, setSelectedId] = useState<Playlist["id"]>();
   const [selected, setSelected] = useState<Playlist>();
 
   const selectPlaylistById = (id: Playlist["id"]): void => {
     setSelectedId(id);
-    setPlaylists((playlists) => {
-      // TODO: Should be Object state / reducer  ( HACK !)
-      setSelected(playlists.find((p) => p.id == id));
-      return playlists;
-    });
+    // setSelected(playlists.find((p) => p.id == id)); // Prawa - details
   };
 
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID();
-
     setPlaylists((playlists) => [...playlists, draft]);
-    setSelected(draft);
     setSelectedId(draft.id);
+    // setSelected(draft);
     showDetails();
   };
 
   const removePlaylist = (id: Playlist["id"]) => {
     setPlaylists((playlists) => playlists.filter((p) => p.id !== id));
     if (selected?.id === id) {
-      setSelected(undefined);
       setSelectedId(undefined);
+      // setSelected(undefined);
     }
   };
 
@@ -49,10 +45,14 @@ const PlaylistsView = (props: Props) => {
       playlists.map((p) => (p.id === draft.id ? draft : p))
     );
     setSelectedId(draft.id);
-    selectPlaylistById(draft.id);
+    // setSelected(draft);
     showDetails();
   };
 
+  // Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
+  setSelected(playlists.find((p) => p.id == selectedId));
+
+  console.log("render ");
   return (
     <div>
       {/* .row>.col*2 */}
