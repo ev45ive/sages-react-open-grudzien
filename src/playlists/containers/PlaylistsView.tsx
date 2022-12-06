@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import PlaylistDetails from "../components/PlaylistDetails";
 import PlaylistEditor from "../components/PlaylistEditor";
@@ -19,8 +19,12 @@ const PlaylistsView = (props: Props) => {
   const [selectedId, setSelectedId] = useState<Playlist["id"]>();
   const [selected, setSelected] = useState<Playlist>();
 
+  const editorAPIRef = useRef<{ isDirty: boolean }>(null);
+  
   const selectPlaylistById = (id: Playlist["id"]): void => {
-    setSelectedId(id);
+    if (!editorAPIRef.current?.isDirty) {
+      setSelectedId(id);
+    }
   };
 
   const createPlaylist = (draft: Playlist) => {
@@ -72,13 +76,18 @@ const PlaylistsView = (props: Props) => {
           )}
           {mode === "editor" && (
             <PlaylistEditor
+              ref={editorAPIRef}
               playlist={selected}
               onSave={savePlaylist}
               onCancel={showDetails}
             />
           )}
           {mode === "creator" && (
-            <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
+            <PlaylistEditor
+              ref={editorAPIRef}
+              onSave={createPlaylist}
+              onCancel={showDetails}
+            />
           )}
         </div>
       </div>

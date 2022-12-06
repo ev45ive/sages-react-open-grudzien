@@ -1,4 +1,11 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
@@ -14,104 +21,118 @@ const EMPTY_PLAYLIST: Playlist = {
   description: "",
 };
 
-const PlaylistEditor = ({
-  playlist: parentPlaylist = EMPTY_PLAYLIST,
-  onCancel,
-  onSave,
-}: Props) => {
-  const [playlistName, setPlaylistName] = useState(parentPlaylist.name);
-  const [playlistPublic, setPlaylistPublic] = useState(parentPlaylist.public);
-  const [playlistDescription, setPlaylistDescription] = useState(
-    parentPlaylist.description
-  );
+const PlaylistEditor = forwardRef<{ isDirty: boolean }, any>(
+  (
+    { playlist: parentPlaylist = EMPTY_PLAYLIST, onCancel, onSave }: Props,
+    ref
+  ) => {
+    const [playlistName, setPlaylistName] = useState(parentPlaylist.name);
+    const [playlistPublic, setPlaylistPublic] = useState(parentPlaylist.public);
+    const [playlistDescription, setPlaylistDescription] = useState(
+      parentPlaylist.description
+    );
+    
+    const [isDirty, setIsDirty] = useState(false);
+    useEffect(() => {
+      setIsDirty(playlistName !== parentPlaylist.name);
+    }, [playlistName]);
 
-  useEffect(() => {
-    console.log(parentPlaylist);
-    setPlaylistName(parentPlaylist.name);
-    setPlaylistPublic(parentPlaylist.public);
-    setPlaylistDescription(parentPlaylist.description);
-  }, [parentPlaylist]);
+    // Expose Imperative API for parent as ref={API}
+    useImperativeHandle(ref, () => ({
+      isDirty,
+    }));
 
-  const submit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    useEffect(() => {
+      console.log(parentPlaylist);
+      setPlaylistName(parentPlaylist.name);
+      setPlaylistPublic(parentPlaylist.public);
+      setPlaylistDescription(parentPlaylist.description);
+    }, [parentPlaylist]);
 
-    onSave({
-      ...parentPlaylist,
-      name: playlistName,
-      public: playlistPublic,
-      description: playlistDescription,
-    });
-  };
+    const submit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-  useEffect(() => nameInputRef.current?.focus(), [parentPlaylist]);
+      onSave({
+        ...parentPlaylist,
+        name: playlistName,
+        public: playlistPublic,
+        description: playlistDescription,
+      });
+    };
 
-  const nameInputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => nameInputRef.current?.focus(), [parentPlaylist]);
 
-  const uid = useId();
-  const uid2 = useId() + "playlist_public";
+    const nameInputRef = useRef<HTMLInputElement>(null);
 
-  return (
-    <div>
-      <Json>{parentPlaylist}</Json>
-      <Json>
-        {{
-          name: playlistName,
-          public: playlistPublic,
-          description: playlistDescription,
-        }}
-      </Json>
-      <form onSubmit={submit}>
-        <div className="mb-3">
-          <label htmlFor={uid + "playlist_name"} className="form-label">
-            Name
-          </label>
-          <input
-            id={uid + "playlist_name"}
-            ref={nameInputRef}
-            type="text"
-            className="form-control"
-            value={playlistName}
-            onChange={(event) => setPlaylistName(event.currentTarget.value)}
-          />
-          <div className="form-text float-end">{playlistName.length} / 100</div>
-        </div>
+    const uid = useId();
+    const uid2 = useId() + "playlist_public";
 
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id={uid2}
-            checked={playlistPublic}
-            onChange={(e) => setPlaylistPublic(e.target.checked)}
-          />
-          <label className="form-check-label" htmlFor={uid2}>
-            Public
-          </label>
-        </div>
+    return (
+      <div>
+        <Json>{parentPlaylist}</Json>
+        <Json>
+          {{
+            name: playlistName,
+            public: playlistPublic,
+            description: playlistDescription,
+          }}
+        </Json>
+        {isDirty && <p className="text-danger">Unsaved Changes</p>}
+        <form onSubmit={submit}>
+          <div className="mb-3">
+            <label htmlFor={uid + "playlist_name"} className="form-label">
+              Name
+            </label>
+            <input
+              id={uid + "playlist_name"}
+              ref={nameInputRef}
+              type="text"
+              className="form-control"
+              value={playlistName}
+              onChange={(event) => setPlaylistName(event.currentTarget.value)}
+            />
+            <div className="form-text float-end">
+              {playlistName.length} / 100
+            </div>
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlTextarea1" className="form-label">
-            Description
-          </label>
-          <textarea
-            value={playlistDescription}
-            onChange={(e) => setPlaylistDescription(e.target.value)}
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows={3}
-          ></textarea>
-        </div>
+          <div className="mb-3 form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id={uid2}
+              checked={playlistPublic}
+              onChange={(e) => setPlaylistPublic(e.target.checked)}
+            />
+            <label className="form-check-label" htmlFor={uid2}>
+              Public
+            </label>
+          </div>
 
-        <button type="button" className="btn btn-danger" onClick={onCancel}>
-          Cancel
-        </button>
-        <button type="submit" className="btn btn-primary">
-          Save
-        </button>
-      </form>
-    </div>
-  );
-};
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlTextarea1" className="form-label">
+              Description
+            </label>
+            <textarea
+              value={playlistDescription}
+              onChange={(e) => setPlaylistDescription(e.target.value)}
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows={3}
+            ></textarea>
+          </div>
+
+          <button type="button" className="btn btn-danger" onClick={onCancel}>
+            Cancel
+          </button>
+          <button type="submit" className="btn btn-primary">
+            Save
+          </button>
+        </form>
+      </div>
+    );
+  }
+);
 
 const Json = ({ children }: any) => (
   <pre>{JSON.stringify(children, null, 2)}</pre>
