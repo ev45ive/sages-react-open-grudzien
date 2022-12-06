@@ -45,13 +45,20 @@ const PlaylistsView = (props: Props) => {
     showDetails();
   };
 
-  // Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
-  // setSelected(playlists.find((p) => p.id == selectedId));
+  // <React.StrictMode> - mount useEffect 2x
 
   useEffect(() => {
-    console.log("useEffect");
-    setSelected(playlists.find((p) => p.id == selectedId));
+    console.log("useEffect After each render!");
   });
+
+  useEffect(() => {
+    console.log("useEffect - once + after deps[] changed");
+    setSelected(playlists.find((p) => p.id == selectedId));
+  }, [selectedId]);
+
+  useEffect(() => {
+    console.log("useEffect - Only Once!");
+  }, []);
 
   console.log("render ");
   return (
