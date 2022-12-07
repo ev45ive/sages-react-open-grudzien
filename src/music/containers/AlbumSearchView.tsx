@@ -13,25 +13,22 @@ const AlbumSearchView = (props: Props) => {
   let [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
 
-  // const {
-  //   data: results = [],
-  //   error,
-  //   isLoading,
-  // } = useFetchAlbumSearchResults(query);
-
   const {
     data: results = [],
     error,
     isFetching: isLoading,
   } = useQuery(
+    // Deduplication Key
     ["searchAlbums", query],
+
+    // Fetcher + Abort
     ({ signal }) => fetchSearchResultsAPI(query, { signal }),
+
+    // Options:
     {
       enabled: query !== "",
     }
   );
-
-  
 
   return (
     <div>
