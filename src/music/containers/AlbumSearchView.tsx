@@ -16,8 +16,9 @@ const AlbumSearchView = (props: Props) => {
   const {
     data: results = [],
     error,
-    isFetching: isLoading,
+    isLoading,
   } = useQuery(
+
     // Deduplication Key
     ["searchAlbums", query],
 

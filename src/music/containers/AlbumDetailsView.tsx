@@ -13,32 +13,47 @@ type Props = {};
 const AlbumDetailsView = (props: Props) => {
   const { albumId } = useParams();
 
-  // useQuery(['album',albumId], ....)
+  const {
+    data: album,
+    error,
+    isFetching, // any Loading
+    isLoading, // Loading without cache
+    refetch,
+  } = useQuery(["album", albumId], () => fetchAlbumById(albumId), {});
 
-  // fetchAlbumById(albumId)
+  if (isLoading) return <Loader />;
+
+  if (!album) return <div>{error instanceof Error && error.message}</div>;
 
   return (
     <div>
-      <Loader />
       <div className="row">
         <div className="col">
-          <h1 className="display-3"> tutaj wstaw tytul</h1>
+          <h1 className="display-3"> {album.name} </h1>
           <small className="text-muted"> {albumId}</small>
         </div>
       </div>
       <div className="row">
         <div className="col">
-          <AlbumCard album={mockAlbums[0]} />
+          <AlbumCard album={album} />
         </div>
         <div className="col">
           <dl>
             <dt>Artist</dt>
-            <dd>tutaj 1 artysta [0] </dd>
+            <dd>{album.artists[0].name}</dd>
             <dt>Release date </dt>
-            <dd>tutaj data </dd>
-            <dt> Cos innego </dt>
-            <dd>tutaj cos innego</dd>
+            <dd>{album.release_date} </dd>
+            <dt>Tracks</dt>
+            <dd>{album.total_tracks} </dd>
           </dl>
+
+          {/* 
+          <audio src={selectedTrack?.preview_url} className="w-100 my-2" controls/> */}
+
+          <div className="list-group">
+            <div className="list-group-item">1. Track name</div>
+            <div className="list-group-item">1. Track name</div>
+          </div>
         </div>
       </div>
     </div>

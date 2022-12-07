@@ -60,6 +60,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      refetchOnWindowFocus:false,
       retry(failureCount, error) {
         // if(error instanceof AxiosError) false
         // if(failureCount > 3) return false

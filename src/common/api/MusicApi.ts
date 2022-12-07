@@ -21,9 +21,10 @@ export const fetchSearchResultsAPI = async (
 };
 
 export const fetchAlbumById = async (
-  id: string,
+  id?: string,
   config?: AxiosRequestConfig<any>
 ) => {
+  if (!id) throw new Error("Missing ID");
   const { data } = await axios.get<AlbumResponse>("albums/" + id, {
     ...config,
   });
