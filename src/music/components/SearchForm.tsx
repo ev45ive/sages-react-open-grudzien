@@ -8,16 +8,17 @@ const SearchForm = (props: Props) => {
   const [localQuery, setLocalQuery] = useState("");
 
   useEffect(() => {
-    console.log("Start search...", localQuery);
+    // console.log("Start search...", localQuery);
 
     const handle = setTimeout(() => {
-      console.log("Finish search...", localQuery);
+      // console.log("Finish search...", localQuery);
+      props.onSearch(localQuery)
     }, 500);
 
     // before next effect run & before destory
     return () => {
       clearTimeout(handle);
-      console.log("cancel!");
+      // console.log("cancel!");
     };
   }, [localQuery]);
 
