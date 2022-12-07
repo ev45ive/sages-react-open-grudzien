@@ -11,7 +11,11 @@ const AlbumSearchView = (props: Props) => {
   let [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
 
-  const { data: results, error, isLoading } = useFetchAlbumSearchResults(query);
+  const {
+    data: results = [],
+    error,
+    isLoading,
+  } = useFetchAlbumSearchResults(query);
 
   return (
     <div>
