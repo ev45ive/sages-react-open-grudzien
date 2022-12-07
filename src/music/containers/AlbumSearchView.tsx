@@ -16,7 +16,7 @@ const AlbumSearchView = (props: Props) => {
   const {
     data: results = [],
     error,
-    isLoading,
+    isInitialLoading
   } = useQuery(
 
     // Deduplication Key
@@ -40,7 +40,7 @@ const AlbumSearchView = (props: Props) => {
       </div>
       <div className="row">
         <div className="col">
-          {isLoading && <Loader />}
+          {isInitialLoading && <Loader />}
           {error instanceof Error && (
             <p className="alert alert-danger my-2">{error.message}</p>
           )}
