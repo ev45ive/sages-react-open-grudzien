@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 import { isSpotifyErrorResponse } from "../model/Album";
 import { getToken, logIn } from "../services/Auth";
 
@@ -19,6 +19,10 @@ export const initAPI = () => {
     (error: unknown) => {
       if (!axios.isAxiosError(error)) {
         throw new Error("Unexpected error");
+      }
+
+      if (error instanceof CanceledError) {
+        throw error;
       }
 
       if (!error.response?.data || error.response.status == 0) {

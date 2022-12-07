@@ -1,3 +1,4 @@
+import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import {
   fetchAlbumById,
@@ -6,20 +7,31 @@ import {
 } from "../api/MusicApi";
 import { Album } from "../model/Album";
 
-export function useFetch<T, P>(params: P, fetcher: (query: P) => Promise<T>) {
+export function useFetch<T, P>(
+  params: P,
+  fetcher: (query: P, options?: { signal?: AbortSignal }) => Promise<T>
+) {
   const [data, setData] = useState<T>();
   const [error, setError] = useState<Error>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    const signal = ctrl.signal;
+
     setIsLoading(true);
     setData(undefined);
     setError(undefined);
 
-    fetcher(params)
+    fetcher(params, { signal })
       .then((data) => setData(data))
-      .catch((error) => setError(error))
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        setError(error);
+      })
       .finally(() => setIsLoading(false));
+
+    return () => ctrl.abort();
   }, [params]);
 
   return { data, error, isLoading };
