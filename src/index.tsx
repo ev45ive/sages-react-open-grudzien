@@ -25,6 +25,7 @@ import CounterReducer from "./playlists/containers/CounterReducer";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import ReduxCounter from "./playlists/containers/ReduxCounter";
+import PlaylistsRedux from "./playlists/containers/PlaylistsRedux";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -56,7 +57,11 @@ const router = createBrowserRouter([
       },
       {
         path: "playlists",
-        element: <PlaylistsView />,
+        element: <PlaylistsRedux />,
+      },
+      {
+        path: "playlists/:playlistId",
+        element: <PlaylistsRedux />,
       },
       {
         path: "counter",

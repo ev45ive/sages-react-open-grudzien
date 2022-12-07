@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { counterSlice } from "./reducers/counter";
+import { playlistsSlice } from "./reducers/playlists";
 
 export const store = configureStore({
   reducer: {
-    [counterSlice.name]: counterSlice.reducer
-
+    [counterSlice.name]: counterSlice.reducer,
+    [playlistsSlice.name]: playlistsSlice.reducer,
   },
 });
 

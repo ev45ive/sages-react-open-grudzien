@@ -7,7 +7,7 @@ type Props = {
   playlists: Playlist[];
   selectedId?: string | null;
   onSelect: (id: Playlist["id"]) => void;
-  onDelete: (id: Playlist["id"]) => void;
+  onDelete?: (id: Playlist["id"]) => void;
 };
 
 const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
@@ -25,15 +25,17 @@ const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
             onClick={() => onSelect(playlist.id)}
           >
             {index + 1}. {playlist.name}
-            <span
-              className="close float-end"
-              onClick={(event) => {
-                event.stopPropagation(); // Dont select when deleting!
-                onDelete(playlist.id);
-              }}
-            >
-              &times;
-            </span>
+            {onDelete && (
+              <span
+                className="close float-end"
+                onClick={(event) => {
+                  event.stopPropagation(); // Dont select when deleting!
+                  onDelete(playlist.id);
+                }}
+              >
+                &times;
+              </span>
+            )}
           </button>
         ))}
       </div>

@@ -29,7 +29,6 @@ const NavBar = (props: Props) => {
           </ul>
           <div className="ms-auto navbar-text">
             <UserWidget />
-            <UserWidget />
           </div>
         </div>
       </div>
