@@ -98,3 +98,11 @@ https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype
 
 ## JS Async 
 https://www.youtube.com/watch?v=cCOL7MC4Pl0&ab_channel=JSConf
+
+
+## JS Events 
+https://javascript.info/bubbling-and-capturing
+https://lit.dev/docs/components/events/
+https://unixpapa.com/js/testkey.html
+
+React.MouseEvent.nativeEvent -> MouseEvent

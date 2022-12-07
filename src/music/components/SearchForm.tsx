@@ -19,6 +19,9 @@ const SearchForm = (props: Props) => {
           placeholder="Search"
           value={localQuery}
           onChange={(e) => setLocalQuery(e.currentTarget.value)}
+          onKeyUp={(event) => {
+            event.key === "Enter" && props.onSearch(localQuery);
+          }}
         />
 
         <button
