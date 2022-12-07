@@ -17,6 +17,7 @@ const counterR = (state = 0, action: Actions) => {
       return state;
   }
 };
+
 const todosR = (state: State, action: Actions): State => {
   switch (action.type) {
     case "ADD_TODO":
@@ -29,6 +30,7 @@ const todosR = (state: State, action: Actions): State => {
       return state;
   }
 };
+
 const reducer = (state: State, action: any) => {
   console.log(state, action);
 
@@ -37,6 +39,9 @@ const reducer = (state: State, action: any) => {
   return {
     ...state,
     counter: counterR(state.counter, action),
+    // playlists: playlistsSliceReducer(state.playlists, action),
+    // search: searchSliceReducer(state.search, action),
+    // user: userSliceReducer(state.search, action),
   };
 };
 
