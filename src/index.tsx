@@ -19,9 +19,9 @@ const root = ReactDOM.createRoot(
 
 initAuth();
 
-// const router = createHashRouter([
+const router = createHashRouter([
 // const router = createMemoryRouter([
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
