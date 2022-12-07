@@ -8,13 +8,7 @@ type Props = { results: Album[] };
 
 const ResultsGrid = (props: Props) => {
   
-  const query = "batman";
-  useQuery(
-    ["searchAlbums", query],
-    ({ signal }) => fetchSearchResultsAPI(query, { signal }),
-    {}
-  );
-
+ 
   return (
     <div>
       <div className="row row-cols-1 row-cols-sm-4 g-0">
