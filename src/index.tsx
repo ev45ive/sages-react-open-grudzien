@@ -22,6 +22,9 @@ import { AxiosError } from "axios";
 import AlbumDetailsView from "./music/containers/AlbumDetailsView";
 import UserContextProvider from "./common/context/UserContext";
 import CounterReducer from "./playlists/containers/CounterReducer";
+import { store } from "./store";
+import { Provider } from "react-redux";
+import ReduxCounter from "./playlists/containers/ReduxCounter";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -56,9 +59,10 @@ const router = createBrowserRouter([
         element: <PlaylistsView />,
       },
       {
-        path: 'counter',
-        element: <CounterReducer/>
-      }
+        path: "counter",
+        // element: <CounterReducer />,
+        element: <ReduxCounter />,
+      },
     ],
   },
 ]);
@@ -79,9 +83,11 @@ const queryClient = new QueryClient({
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
-        <RouterProvider router={router} />
-      </UserContextProvider>
+      <Provider store={store}>
+        <UserContextProvider>
+          <RouterProvider router={router} />
+        </UserContextProvider>
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );
