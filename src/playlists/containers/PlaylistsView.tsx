@@ -5,39 +5,45 @@ import PlaylistEditor from "../components/PlaylistEditor";
 import PlaylistList from "../components/PlaylistList";
 import { Playlist } from "../../common/model/Playlist";
 import { mockPlaylists } from "../../common/mocks/mockPlaylists";
+import { useSearchParams } from "react-router-dom";
 
 type Props = {};
 
 const PlaylistsView = (props: Props) => {
-  const [mode, setMode] = useState<"details" | "editor" | "creator">("details");
-  const showEditor = () => setMode("editor");
-  const showDetails = () => setMode("details");
-  const showCreator = () => setMode("creator");
+  const [params, setParams] = useSearchParams();
+
+  const selectedId = params.get("id");
+  const mode = params.get("mode") || "details";
+
+  const showEditor = () => setParams({ id: selectedId!, mode: "editor" });
+  const showDetails = () => setParams({ id: selectedId!, mode: "details" });
+  const showCreator = () => setParams({ mode: "creator" });
 
   const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
 
-  const [selectedId, setSelectedId] = useState<Playlist["id"]>();
   const [selected, setSelected] = useState<Playlist>();
 
   const editorAPIRef = useRef<{ isDirty: boolean }>(null);
-  
-  const selectPlaylistById = (id: Playlist["id"]): void => {
-    if (!editorAPIRef.current?.isDirty) {
-      setSelectedId(id);
-    }
+
+  const selectPlaylistById = (id?: Playlist["id"]): void => {
+    setParams(id ? { id, mode: "details" } : undefined);
   };
+
+  useEffect(
+    () => setSelected(playlists.find((p) => p.id == selectedId)),
+    [selectedId]
+  );
 
   const createPlaylist = (draft: Playlist) => {
     draft.id = crypto.randomUUID();
     setPlaylists((playlists) => [...playlists, draft]);
-    setSelectedId(draft.id);
-    showDetails();
+    selectPlaylistById(draft.id);
   };
 
   const removePlaylist = (id: Playlist["id"]) => {
     setPlaylists((playlists) => playlists.filter((p) => p.id !== id));
     if (selected?.id === id) {
-      setSelectedId(undefined);
+      selectPlaylistById(undefined);
     }
   };
 
@@ -45,14 +51,8 @@ const PlaylistsView = (props: Props) => {
     setPlaylists((playlists) =>
       playlists.map((p) => (p.id === draft.id ? draft : p))
     );
-    setSelectedId(draft.id);
-    showDetails();
+    selectPlaylistById(draft.id);
   };
-
-  useEffect(
-    () => setSelected(playlists.find((p) => p.id == selectedId)),
-    [selectedId]
-  );
 
   // console.log("render ");
   return (

@@ -5,7 +5,7 @@ import { Playlist } from "../../common/model/Playlist";
 
 type Props = {
   playlists: Playlist[];
-  selectedId?: string;
+  selectedId?: string | null;
   onSelect: (id: Playlist["id"]) => void;
   onDelete: (id: Playlist["id"]) => void;
 };
@@ -15,8 +15,7 @@ const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
     <div>
       <div className="list-group">
         {playlists.map((playlist, index) => (
-          <a
-            href="#"
+          <button
             className={classNames(
               `list-group-item`,
               `list-group-item-action`,
@@ -35,7 +34,7 @@ const PlaylistList = ({ playlists, onSelect, onDelete, selectedId }: Props) => {
             >
               &times;
             </span>
-          </a>
+          </button>
         ))}
       </div>
     </div>
