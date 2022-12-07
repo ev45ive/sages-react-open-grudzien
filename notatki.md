@@ -106,3 +106,9 @@ https://lit.dev/docs/components/events/
 https://unixpapa.com/js/testkey.html
 
 React.MouseEvent.nativeEvent -> MouseEvent
+
+## Fetch API
+axios 
+https://use-http.com/#/?id=usage
+https://swr.vercel.app/
+
