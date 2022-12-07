@@ -69,14 +69,14 @@ const PlaylistEditor = forwardRef<{ isDirty: boolean }, any>(
 
     return (
       <div>
-        <Json>{parentPlaylist}</Json>
+        {/* <Json>{parentPlaylist}</Json>
         <Json>
           {{
             name: playlistName,
             public: playlistPublic,
             description: playlistDescription,
           }}
-        </Json>
+        </Json> */}
         {isDirty && <p className="text-danger">Unsaved Changes</p>}
         <form onSubmit={submit}>
           <div className="mb-3">

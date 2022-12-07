@@ -20,10 +20,7 @@ const PlaylistsView = (props: Props) => {
   const showCreator = () => setParams({ mode: "creator" });
 
   const [playlists, setPlaylists] = useState<Playlist[]>(mockPlaylists);
-
   const [selected, setSelected] = useState<Playlist>();
-
-  const editorAPIRef = useRef<{ isDirty: boolean }>(null);
 
   const selectPlaylistById = (id?: Playlist["id"]): void => {
     setParams(id ? { id, mode: "details" } : undefined);
@@ -76,18 +73,13 @@ const PlaylistsView = (props: Props) => {
           )}
           {mode === "editor" && (
             <PlaylistEditor
-              ref={editorAPIRef}
               playlist={selected}
               onSave={savePlaylist}
               onCancel={showDetails}
             />
           )}
           {mode === "creator" && (
-            <PlaylistEditor
-              ref={editorAPIRef}
-              onSave={createPlaylist}
-              onCancel={showDetails}
-            />
+            <PlaylistEditor onSave={createPlaylist} onCancel={showDetails} />
           )}
         </div>
       </div>
