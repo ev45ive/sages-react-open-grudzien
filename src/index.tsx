@@ -16,12 +16,14 @@ import {
 import AlbumSearchView from "./music/containers/AlbumSearchView";
 import PlaylistsView from "./playlists/containers/PlaylistsView";
 import NavBar from "./common/components/NavBar";
+import { initAPI } from "./common/api/initAPI";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 initAuth();
+initAPI();
 
 // const router = createHashRouter([
 // const router = createMemoryRouter([
