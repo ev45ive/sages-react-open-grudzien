@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchAlbumById } from "../../common/api/MusicApi";
 import { Loader } from "../../common/components/Loader";
+import { classNames } from "../../common/helpers/classNames";
 import { mockAlbums } from "../../common/mocks/mockAlbums";
+import { Track } from "../../common/model/Album";
 import AlbumCard from "../components/AlbumCard";
 
 type Props = {};
@@ -20,6 +22,22 @@ const AlbumDetailsView = (props: Props) => {
     isLoading, // Loading without cache
     refetch,
   } = useQuery(["album", albumId], () => fetchAlbumById(albumId), {});
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState<Track>();
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const playTrack = (track: Track) => {
+    setCurrentTrack(track);
+    if (currentTrack?.id !== track.id) setIsPlaying(true);
+    else setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.volume = 0.1;
+    isPlaying ? audioRef.current.play() : audioRef.current.pause();
+  }, [currentTrack, isPlaying]);
 
   if (isLoading) return <Loader />;
 
@@ -47,12 +65,25 @@ const AlbumDetailsView = (props: Props) => {
             <dd>{album.total_tracks} </dd>
           </dl>
 
-          {/* 
-          <audio src={selectedTrack?.preview_url} className="w-100 my-2" controls/> */}
+          <audio
+            ref={audioRef}
+            src={currentTrack?.preview_url}
+            className="w-100 my-2"
+            controls
+          />
 
           <div className="list-group">
-            <div className="list-group-item">1. Track name</div>
-            <div className="list-group-item">1. Track name</div>
+            {album.tracks?.items.map((track, i) => (
+              <div
+                className={classNames(
+                  "list-group-item",
+                  currentTrack?.id === track.id && "active"
+                )}
+                onClick={() => playTrack(track)}
+              >
+                {i + 1}. {track.name}
+              </div>
+            ))}
           </div>
         </div>
       </div>
