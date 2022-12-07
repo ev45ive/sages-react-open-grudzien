@@ -19,6 +19,7 @@ import NavBar from "./common/components/NavBar";
 import { initAPI } from "./common/api/initAPI";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import AlbumDetailsView from "./music/containers/AlbumDetailsView";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <AlbumSearchView />,
+      }, 
+      {
+        path: "albums/:albumId",
+        element: <AlbumDetailsView />,
       },
       {
         path: "playlists",
