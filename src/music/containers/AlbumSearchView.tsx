@@ -29,7 +29,7 @@ const AlbumSearchView = (props: Props) => {
     <div>
       <div className="row">
         <div className="col">
-          <SearchForm onSearch={setQuery} />
+          <SearchForm onSearch={setQuery} query={query} />
         </div>
       </div>
       <div className="row">
