@@ -10,7 +10,13 @@ const SearchForm = (props: Props) => {
   const search = () => props.onSearch(localQuery);
 
   return (
-    <div className="mb-3">
+    <form
+      className="mb-3"
+      onSubmit={(event) => {
+        event.preventDefault();
+        props.onSearch(localQuery);
+      }}
+    >
       <div className="input-group">
         <input
           id="searchinput"
@@ -19,20 +25,13 @@ const SearchForm = (props: Props) => {
           placeholder="Search"
           value={localQuery}
           onChange={(e) => setLocalQuery(e.currentTarget.value)}
-          onKeyUp={(event) => {
-            event.key === "Enter" && props.onSearch(localQuery);
-          }}
         />
 
-        <button
-          className="btn btn-outline-secondary"
-          type="button"
-          onClick={search}
-        >
+        <button className="btn btn-outline-secondary" type="submit">
           Search
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
