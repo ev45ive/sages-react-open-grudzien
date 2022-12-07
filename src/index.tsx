@@ -17,6 +17,8 @@ import AlbumSearchView from "./music/containers/AlbumSearchView";
 import PlaylistsView from "./playlists/containers/PlaylistsView";
 import NavBar from "./common/components/NavBar";
 import { initAPI } from "./common/api/initAPI";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,8 +27,6 @@ const root = ReactDOM.createRoot(
 initAuth();
 initAPI();
 
-// const router = createHashRouter([
-// const router = createMemoryRouter([
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,9 +52,23 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry(failureCount, error) {
+        // if(error instanceof AxiosError) false
+        // if(failureCount > 3) return false
+        return false;
+      },
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

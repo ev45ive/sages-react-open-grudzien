@@ -1,10 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { fetchSearchResultsAPI } from "../../common/api/MusicApi";
 import { Album } from "../../common/model/Album";
 import AlbumCard from "./AlbumCard";
 
-type Props = { results: Album[]; };
+type Props = { results: Album[] };
 
 const ResultsGrid = (props: Props) => {
+  
+  const query = "batman";
+  useQuery(
+    ["searchAlbums", query],
+    ({ signal }) => fetchSearchResultsAPI(query, { signal }),
+    {}
+  );
+
   return (
     <div>
       <div className="row row-cols-1 row-cols-sm-4 g-0">
