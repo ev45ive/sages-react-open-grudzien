@@ -1,6 +1,5 @@
-import axios, { AxiosError } from "axios";
-import { mockAlbums } from "../mocks/mockAlbums";
-import { Album, AlbumResponse, AlbumSearchResponse } from "../model/Album";
+import axios from "axios";
+import { AlbumResponse, AlbumSearchResponse } from "../model/Album";
 import { Playlist } from "../model/Playlist";
 
 // ==============

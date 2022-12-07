@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { fetchSearchResultsAPI } from "../../common/api/MusicApi";
 import { Loader } from "../../common/components/Loader";
-import { Album } from "../../common/model/Album";
 import ResultsGrid from "../components/ResultsGrid";
 import SearchForm from "../components/SearchForm";
+import { useFetchAlbumSearchResults } from "../../common/hooks/useFetchAlbumSearchResults";
 
 type Props = {};
 
@@ -12,20 +11,7 @@ const AlbumSearchView = (props: Props) => {
   let [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
 
-  const [results, setResults] = useState<Album[]>([]);
-  const [error, setError] = useState<Error>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setResults([]);
-    setError(undefined);
-
-    fetchSearchResultsAPI(query)
-      .then((data) => setResults(data))
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false));
-  }, [query]);
+  const { results, error, isLoading } = useFetchAlbumSearchResults(query);
 
   return (
     <div>
