@@ -75,6 +75,7 @@ const AlbumDetailsView = (props: Props) => {
           <div className="list-group">
             {album.tracks?.items.map((track, i) => (
               <div
+                key={track.id}
                 className={classNames(
                   "list-group-item",
                   currentTrack?.id === track.id && "active"
