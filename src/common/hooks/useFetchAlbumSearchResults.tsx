@@ -3,20 +3,20 @@ import { fetchSearchResultsAPI } from "../api/MusicApi";
 import { Album } from "../model/Album";
 
 export function useFetchAlbumSearchResults(query: string) {
-  const [results, setResults] = useState<Album[]>([]);
+  const [data, setData] = useState<Album[]>([]);
   const [error, setError] = useState<Error>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    setResults([]);
+    setData([]);
     setError(undefined);
 
     fetchSearchResultsAPI(query)
-      .then((data) => setResults(data))
+      .then((data) => setData(data))
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false));
   }, [query]);
 
-  return { results, error, isLoading };
+  return { data, error, isLoading };
 }
