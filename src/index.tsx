@@ -26,6 +26,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import ReduxCounter from "./playlists/containers/ReduxCounter";
 import PlaylistsRedux from "./playlists/containers/PlaylistsRedux";
+import { playlistLoadById } from "./store/reducers/playlists";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "playlists/:playlistId",
         element: <PlaylistsRedux />,
+        loader() {
+          // store.dispatch(playlistLoadById(playlistId));
+          return true
+        },
       },
       {
         path: "counter",
