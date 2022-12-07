@@ -8,7 +8,12 @@ type Props = {
 const SearchForm = (props: Props) => {
   const [localQuery, setLocalQuery] = useState(props.query);
 
+  useEffect(() => setLocalQuery(props.query), [props.query]);
+
+  // Debounce:
   useEffect(() => {
+    if (props.query === localQuery) return;
+
     const handle = setTimeout(() => props.onSearch(localQuery), 500);
     return () => clearTimeout(handle);
   }, [localQuery]);

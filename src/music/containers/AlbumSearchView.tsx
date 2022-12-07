@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { fetchSearchResultsAPI } from "../../common/api/MusicApi";
 import { Loader } from "../../common/components/Loader";
 import { Album } from "../../common/model/Album";
@@ -8,8 +9,10 @@ import SearchForm from "../components/SearchForm";
 type Props = {};
 
 const AlbumSearchView = (props: Props) => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+
   const [results, setResults] = useState<Album[]>([]);
-  const [query, setQuery] = useState("batman");
   const [error, setError] = useState<Error>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,14 +25,13 @@ const AlbumSearchView = (props: Props) => {
       .then((data) => setResults(data))
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false));
-      
   }, [query]);
 
   return (
     <div>
       <div className="row">
         <div className="col">
-          <SearchForm onSearch={setQuery} query={query} />
+          <SearchForm onSearch={(q) => setSearchParams({ q })} query={query} />
         </div>
       </div>
       <div className="row">

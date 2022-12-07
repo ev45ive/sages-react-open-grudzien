@@ -10,7 +10,6 @@ import { getToken } from "../services/Auth";
 // };
 
 export const fetchSearchResultsAPI = async (query: string) => {
-  console.log("Searching..." + query);
   try {
     const { data } = await axios.get<AlbumSearchResponse>(
       "https://api.spotify.com/v1/search",
