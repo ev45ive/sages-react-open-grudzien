@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type Props = {
   onSearch: (query: string) => void;
@@ -7,7 +7,19 @@ type Props = {
 const SearchForm = (props: Props) => {
   const [localQuery, setLocalQuery] = useState("");
 
-  const search = () => props.onSearch(localQuery);
+  useEffect(() => {
+    console.log("Start search...", localQuery);
+
+    const handle = setTimeout(() => {
+      console.log("Finish search...", localQuery);
+    }, 500);
+
+    // before next effect run & before destory
+    return () => {
+      clearTimeout(handle);
+      console.log("cancel!");
+    };
+  }, [localQuery]);
 
   return (
     <form
