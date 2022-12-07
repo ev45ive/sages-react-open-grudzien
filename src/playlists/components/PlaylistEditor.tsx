@@ -31,19 +31,20 @@ const PlaylistEditor = forwardRef<{ isDirty: boolean }, any>(
     const [playlistDescription, setPlaylistDescription] = useState(
       parentPlaylist.description
     );
-    
+
+    // setPlaylist({
+    //   ...playlist,
+    //   name: event?.target.value
+    // })
+
     const [isDirty, setIsDirty] = useState(false);
     useEffect(() => {
       setIsDirty(playlistName !== parentPlaylist.name);
     }, [playlistName]);
 
-    // Expose Imperative API for parent as ref={API}
-    useImperativeHandle(ref, () => ({
-      isDirty,
-    }));
+    useImperativeHandle(ref, () => ({ isDirty }));
 
     useEffect(() => {
-      console.log(parentPlaylist);
       setPlaylistName(parentPlaylist.name);
       setPlaylistPublic(parentPlaylist.public);
       setPlaylistDescription(parentPlaylist.description);

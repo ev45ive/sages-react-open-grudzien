@@ -21,6 +21,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AlbumDetailsView from "./music/containers/AlbumDetailsView";
 import UserContextProvider from "./common/context/UserContext";
+import CounterReducer from "./playlists/containers/CounterReducer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         path: "playlists",
         element: <PlaylistsView />,
       },
+      {
+        path: 'counter',
+        element: <CounterReducer/>
+      }
     ],
   },
 ]);

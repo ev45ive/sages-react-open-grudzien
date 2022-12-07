@@ -118,3 +118,8 @@ https://formik.org/docs/examples/typescript
 https://react-hook-form.com/get-started
 https://react-hook-form.com/api/useformcontext
 
+## redux store
+https://redux-toolkit.js.org/
+https://redux.js.org/usage/
+
+
