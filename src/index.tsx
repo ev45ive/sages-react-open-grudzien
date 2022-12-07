@@ -9,6 +9,8 @@ import {
   RouterProvider,
   createHashRouter,
   createMemoryRouter,
+  NavLink,
+  Link,
 } from "react-router-dom";
 import AlbumSearchView from "./music/containers/AlbumSearchView";
 import PlaylistsView from "./playlists/containers/PlaylistsView";
@@ -19,19 +21,19 @@ const root = ReactDOM.createRoot(
 
 initAuth();
 
-const router = createHashRouter([
+// const router = createHashRouter([
 // const router = createMemoryRouter([
-// const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "search",
         element: <AlbumSearchView />,
       },
       {
-        path: "/playlists",
+        path: "playlists",
         element: <PlaylistsView />,
       },
     ],

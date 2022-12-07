@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { logIn } from "../services/Auth";
 
 type Props = {};
@@ -7,23 +8,23 @@ const NavBar = (props: Props) => {
   return (
     <nav className="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <NavLink className="navbar-brand" to="/">
           MusicApp
-        </a>
+        </NavLink>
         <button className="navbar-toggler" type="button">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#/">
+              <NavLink className="nav-link" to="/search">
                 Search
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#/playlists">
+              <NavLink className="nav-link" to="/playlists">
                 Playlists
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="ms-auto navbar-text">
