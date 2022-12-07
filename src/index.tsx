@@ -27,6 +27,7 @@ import { Provider } from "react-redux";
 import ReduxCounter from "./playlists/containers/ReduxCounter";
 import PlaylistsRedux from "./playlists/containers/PlaylistsRedux";
 import { playlistLoadById } from "./store/reducers/playlists";
+import MobxContainer from "./playlists/containers/MobxContainer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         element: <AlbumDetailsView />,
       },
       {
+        path: "mobx",
+        element: <MobxContainer />,
+      },
+      {
         path: "playlists",
         element: <PlaylistsRedux />,
       },
@@ -65,7 +70,7 @@ const router = createBrowserRouter([
         element: <PlaylistsRedux />,
         loader() {
           // store.dispatch(playlistLoadById(playlistId));
-          return true
+          return true;
         },
       },
       {
