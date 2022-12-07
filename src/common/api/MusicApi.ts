@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { AlbumResponse, AlbumSearchResponse } from "../model/Album";
 import { Playlist } from "../model/Playlist";
+import { User } from "../model/User";
 
 // ==============
 
@@ -36,5 +37,10 @@ export const fetchPlaylistById = async (
   config?: AxiosRequestConfig<any>
 ) => {
   const { data } = await axios.get<Playlist>("playlists/" + id, { ...config });
+  return data;
+};
+
+export const fetchCurrentUser = async (config?: AxiosRequestConfig<any>) => {
+  const { data } = await axios.get<User>("me", { ...config });
   return data;
 };

@@ -9,6 +9,8 @@ function App() {
   // const { isFetching } = useQueryClient();
   const loader = useIsFetching();
 
+  // fetchCurrentUser
+
   return (
     <div className="App">
       <NavBar />

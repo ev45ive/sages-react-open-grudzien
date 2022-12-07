@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { logIn } from "../services/Auth";
+import { UserWidget } from "./UserWidget";
 
 type Props = {};
 
@@ -28,9 +28,8 @@ const NavBar = (props: Props) => {
             </li>
           </ul>
           <div className="ms-auto navbar-text">
-            <button className="btn btn-dark" onClick={logIn}>
-              Login
-            </button>
+            <UserWidget />
+            <UserWidget />
           </div>
         </div>
       </div>

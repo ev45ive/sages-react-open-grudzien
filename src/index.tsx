@@ -20,6 +20,7 @@ import { initAPI } from "./common/api/initAPI";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AlbumDetailsView from "./music/containers/AlbumDetailsView";
+import UserContextProvider from "./common/context/UserContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <AlbumSearchView />,
-      }, 
+      },
       {
         path: "albums/:albumId",
         element: <AlbumDetailsView />,
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       retry(failureCount, error) {
         // if(error instanceof AxiosError) false
         // if(failureCount > 3) return false
@@ -73,7 +74,9 @@ const queryClient = new QueryClient({
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
