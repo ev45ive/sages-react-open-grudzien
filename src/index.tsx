@@ -4,16 +4,43 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initAuth } from "./common/services/Auth";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  createHashRouter,
+  createMemoryRouter,
+} from "react-router-dom";
+import AlbumSearchView from "./music/containers/AlbumSearchView";
+import PlaylistsView from "./playlists/containers/PlaylistsView";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-initAuth()
+initAuth();
+
+// const router = createHashRouter([
+// const router = createMemoryRouter([
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <AlbumSearchView />,
+      },
+      {
+        path: "/playlists",
+        element: <PlaylistsView />,
+      },
+    ],
+  },
+]);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
